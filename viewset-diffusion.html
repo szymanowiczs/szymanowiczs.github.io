@@ -85,7 +85,7 @@
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- PDF Link. -->
+              <!-- PDF Link. 
               <span class="link-block">
                 <a href="https://szymanowiczs.github.io/viewset-diffusion"
                    class="external-link button is-normal is-rounded is-dark">
@@ -94,9 +94,9 @@
                   </span>
                   <span>Paper</span>
                 </a>
-              </span>
+              </span> -->
               <span class="link-block">
-                <a href="https://szymanowiczs.github.io/viewset-diffusion"
+                <a href="https://arxiv.org/abs/2306.07881"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -116,12 +116,12 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://szymanowiczs.github.io/viewset-diffusion"
+                <a href="https://github.com/szymanowiczs/viewset-diffusion"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code (coming soon)</span>
+                  <span>Code</span>
                   </a>
               </span>
               <!-- Dataset Link. -->
@@ -146,20 +146,27 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <div class="content has-text-centered">
-        <video id="replay-video"
-               controls
-               muted
-               preload
-               playsinline
-               width="75%">
-          <source src="./viewset-diffusion-static/videos/teaser_vid_website.m4v"
-                  type="video/mp4">
-        </video>
+        <img src="./viewset-diffusion-static/images/teaser_figure_arxiv_with_circle.pdf"
+                class="interpolation-image"
+                alt="Method figure."/>
       </div>
       <h2 class="subtitle has-text-centered">
         <span class="dnerf">Viewset Diffusion</span> trains image-conditioned 3D generative models from 2D data.
         A single model is capable of both ambiguity-aware 3D reconstruction and unconditional 3D generation.
       </h2>
+      <div class="content has-text-centered">
+        <video id="summary-video"
+               controls
+               muted
+               loop
+               autoplay
+               preload
+               playsinline
+               width="75%">
+          <source src="viewset-diffusion-static/videos/summary_website.m4v"
+                  type="video/mp4">
+        </video>
+      </div>
     </div>
   </div>
 </section>
@@ -219,16 +226,157 @@
 </section>
 
 
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <h2 class="title is-3" style="margin-bottom:2cm;">Results (scroll horizontally for more classes) </h2>
+      </div>
+      <div class="columns is-centered">
+        <h3 class="title is-4">Single-view 3D Reconstruction (non-cherry-picked)</h3>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel" >
+        
+        <div class="item item-cars1">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="viewset-diffusion-static/results/1_view/sbs_cars_1_view_2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cars2">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="viewset-diffusion-static/results/1_view/sbs_cars_1_view_3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-hydrants1">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="viewset-diffusion-static/results/1_view/sbs_hydrants_1_view_2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-hydrants2">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="viewset-diffusion-static/results/1_view/sbs_hydrants_1_view_3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-mine1">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="viewset-diffusion-static/results/1_view/sbs_mine_1_view_0.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mine2">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="viewset-diffusion-static/results/1_view/sbs_mine_1_view_1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <h3 class="title is-4">Unconditional 3D Generation (non-cherry-picked)</h3>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        
+        <div class="item item-cars1">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline width="50%">
+            <source src="viewset-diffusion-static/results/0_view/cars_0_view_3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cars2">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline width="50%">
+            <source src="viewset-diffusion-static/results/0_view/cars_0_view_4.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cars3">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline width="50%">
+            <source src="viewset-diffusion-static/results/0_view/cars_0_view_2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-hydrants1">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline width="50%">
+            <source src="viewset-diffusion-static/results/0_view/hydrarnts_0_view_3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-hydrants2">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline width="50%">
+            <source src="viewset-diffusion-static/results/0_view/hydrarnts_0_view_2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-hydrants4">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline width="50%">
+            <source src="viewset-diffusion-static/results/0_view/hydrants_0_view_1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mine1">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline width="50%">
+            <source src="viewset-diffusion-static/results/0_view/mine_0_view_0.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mine2">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline width="50%">
+            <source src="viewset-diffusion-static/results/0_view/mine_0_view_2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mine3">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline width="50%">
+            <source src="viewset-diffusion-static/results/0_view/mine_0_view_1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="container is-max-desktop">
     
-    
-    <!--/ Matting. -->
-
-    <!-- Animation. -->
+  
+    <!-- More. -->
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <!-- Interpolating. -->
+        <!-- Ambiguity. -->
+        <h3 class="title is-4">Ambiguity</h3>
+        <div class="content has-text-justified">
+          <p>
+            Under presence of ambiguity, deterministic methods blur possible shapes (orange car’s back, 
+            Minecraft characters’ poses) and colours (black car’s back, occluded sides of Minecraft characters). 
+            Our method samples plausible 3D reconstructions.
+          </p>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <img src="./viewset-diffusion-static/images/ambiguity_figure_v2.pdf"
+                class="interpolation-image"
+                alt="Ambiguity figure."/>
+          </div>
+        </div>
+        <!--/ Ambiguity. -->
+
+
+
+        <!-- Method. -->
+
         <h3 class="title is-4">Method</h3>
         <div class="content has-text-justified">
           <p>
@@ -247,10 +395,8 @@
                 alt="Method figure."/>
           </div>
         </div>
-        <!--/ Interpolating. -->
 
-        <!-- Re-rendering. -->
-        <!--/ Re-rendering. -->
+        <!--/ Method. -->
 
       </div>
     </div> 
@@ -288,21 +434,14 @@
   </div>
 </section>
 
-<section>
-
-  <div class="columns is-centered">
-    <h3 class="title is-4">More coming soon!</h3>
-  </div>
-</section>
-
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <pre><code>@article{szymanowicz2023viewset_diffusion,
   author    = {Szymanowicz, Stanislaw and Rupprecht, Christian and Vedaldi, Andrea},
-  title     = {Viewset Diffusion},
-  journal   = {arxiv},
+  title     = {Viewset Diffusion: (0-)Image-Conditioned 3D Generative Models from 2D Data},
+  journal   = {arXiv},
   year      = {2023},
 }</code></pre>
   </div>
@@ -313,10 +452,10 @@
   <div class="container">
     <div class="content has-text-centered">
       <a class="icon-link"
-         href="https://szymanowiczs.github.io">
+         href="https://arxiv.org/pdf/2306.07881.pdf">
         <i class="fas fa-file-pdf"></i>
       </a>
-      <a class="icon-link" href="https://szymanowiczs.github.io" class="external-link" disabled>
+      <a class="icon-link" href="https://github.com/szymanowiczs/viewset-diffusion" class="external-link" disabled>
         <i class="fab fa-github"></i>
       </a>
     </div>
