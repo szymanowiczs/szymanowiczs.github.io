@@ -1,1 +1,298 @@
-Website under construction
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Stan Szymanowicz</title>
+
+    <meta name="author" content="Stan Szymanowicz">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+  </head>
+
+  <body>
+    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <tr style="padding:0px">
+        <td style="padding:0px">
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr style="padding:0px">
+              <td style="padding:2.5%;width:63%;vertical-align:middle">
+                <p class="name" style="text-align: center;">
+                  Stan Szymanowicz
+                </p>
+                <p>I am a PhD student at <a href="https://www.robots.ox.ac.uk/~vgg/">VGG group at University of Oxford</a>, where I work on Computer Vision and Machine Learning with <a href="https://www.robots.ox.ac.uk/~vedaldi/">Andrea Vedaldi</a> and <a href="https://chrirupp.github.io">Christian Rupprecht</a>.
+                </p>
+                <p>
+                  Before that, I worked at <a href="https://www.microsoft.com/en-us/research/lab/mixed-reality-ai-lab-cambridge/">Microsoft Mixed Reality Lab</a> with <a href="https://www.microsoft.com/en-us/research/people/matjoh/">Matthew Johnson</a>, Virginia Estellers and Julien Valentin.
+                  I received an MEng with Distinction from the University of Cambridge where I worked with Roberto Cippola and James Charles.
+                </p>
+                <p style="text-align:center">
+                  <a href="mailto:stan@robots.ox.ac.uk">Email</a> &nbsp;/&nbsp;
+                  <!--  <a href="data/JonBarron-CV.pdf">CV</a> &nbsp;/&nbsp;
+                  <a href="data/JonBarron-bio.txt">Bio</a> &nbsp;/&nbsp;-->
+                  <a href="https://scholar.google.com/citations?user=kPJKnRIAAAAJ&hl=en">Google Scholar</a> &nbsp;/&nbsp;
+                  <a href="https://twitter.com/StanSzymanowicz">Twitter</a> &nbsp;/&nbsp;
+                  <a href="https://github.com/szymanowiczs/">Github</a>
+                </p>
+              </td>
+              <td style="padding:2.5%;width:40%;max-width:40%">
+                <a href="images/JonBarron.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/profile_pic.jpeg" class="hoverZoomLink"></a>
+              </td>
+            </tr>
+          </tbody></table>
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+              <tr>
+              <td style="padding:20px;width:100%;vertical-align:middle">
+                <h2>Research</h2>
+                <p>
+                  I am interested in many areas of Machine Learning - my research focuses on Computer Vision with an emphasis on 3D Vision. Recently, I have been exploring the intersection of 3D Computer Vision, Computer Graphics and Generative Models.
+                </p>
+              </td>
+            </tr>
+          </tbody></table>
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          
+    
+    <!--<tr onmouseout="viewset_diff_stop()" onmouseover="viewset_diff_start()"  bgcolor="#ffffd0"> -->
+    <tr onmouseout="viewset_diff_stop()" onmouseover="viewset_diff_start()"  bgcolor="#ffffd0">
+        <td style="padding:20px;width:25%;vertical-align:middle">
+          <div class="one">
+            <div class="two" id='viewset_diff_image'><video  width=100% height=100% muted autoplay loop>
+            <source src="viewset-diffusion-static/results/0_view/cars_0_view_4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+
+            </video></div>
+            <img src='images/generation_viewset_diffusion.png' width="160">
+          </div>
+          <script type="text/javascript">
+            function viewset_diff_start() {
+              document.getElementById('viewset_diff_image').style.opacity = "1";
+            }
+
+            function viewset_diff_stop() {
+              document.getElementById('viewset_diff_image').style.opacity = "0";
+            }
+            viewset_diff_stop()
+          </script>
+        </td>
+        <td style="padding:20px;width:75%;vertical-align:middle">
+          <a href="https://szymanowiczs.github.io/viewset-diffusion">
+            <span class="papertitle">Viewset Diffusion: (0-)Image-Conditioned 3D Generation from 2D Data</span>
+          </a>
+          <br>
+          <strong>Stanislaw Szymanowicz</strong>,
+          <a href="https://chrirupp.github.io">Chrisitian Rupprecht</a>,
+          <a href="https://www.robots.ox.ac.uk/~vedaldi/">Andrea Vedaldi</a>
+          <br>
+          <em>ICCV</em>, 2023
+          <br>
+          <a href="https://szymanowiczs.github.io/viewset-diffusion">project page</a>
+          /
+          <a href="https://arxiv.org/abs/2306.07881">arXiv</a>
+          <p></p>
+          <p>
+          Novel formulation of the denoising function in Diffusion Models lets us train 3D generative models from 2D data only. Our models can perform both few-view 3D reconstruction and 3D generation. 
+          </p>
+        </td>
+      </tr>
+      
+      <tr onmouseout="head_avatars_stop()" onmouseover="head_avatars_start()">
+        <td style="padding:20px;width:25%;vertical-align:middle">
+          <div class="one">
+            <div class="two" id='head_avatars_image'><video  width=100% height=100% muted autoplay loop>
+            <source src="images/head.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <img src='images/head_avatars_teaser.png' width="160">
+          </div>
+          <script type="text/javascript">
+            function head_avatars_start() {
+              document.getElementById('head_avatars_image').style.opacity = "1";
+            }
+
+            function head_avatars_stop() {
+              document.getElementById('head_avatars_image').style.opacity = "0";
+            }
+            head_avatars_stop()
+          </script>
+        </td>
+        
+        <td style="padding:20px;width:75%;vertical-align:middle">
+          <a href="https://arxiv.org/abs/2210.11594">
+            <span class="papertitle">Photo-realistic 360◦ Head Avatars in the Wild</span>
+          </a>
+          <br>
+          <strong>Stanislaw Szymanowicz</strong>,
+          Virginia Estellers,
+          <a href="https://www.microsoft.com/en-us/research/people/tabaltru/">Tadas Baltrusaitis</a>,
+          <a href="https://www.microsoft.com/en-us/research/people/matjoh/">Matthew Johnson</a>
+          <br>
+          <em>ECCV Workshop on Computer Vision for Metaverse</em>, 2022
+          <br>
+          <a href="https://arxiv.org/abs/2210.11594">arXiv</a>
+          <p></p>
+          <p>
+          We unlock training NeRFs of 360◦ human heads from mobile phone captures. 
+          Synthetically-trained face keypoint detector allows to get a rough camera pose estimate which is then refined in the optimization process. 
+          </p>
+        </td>
+      </tr>
+
+      <tr>         
+        <td style="padding:20px;width:25%;vertical-align:middle" >
+          <img src='images/voltemorph_teaser.png' width="160">
+        </td>
+                
+
+        <td style="padding:20px;width:75%;vertical-align:middle">
+          <a href="https://arxiv.org/pdf/2208.00949.pdf">
+            <span class="papertitle">VolTeMorph: Realtime, Controllable and Generalisable Animation of Volumetric Representations</span>
+          </a>
+          <br>
+          
+          <a href="http://stephangarbin.com">Stephan Garbin*</a>, 
+          Marek Kowalski*, Virginia Estellers*, 
+          <strong>Stanislaw Szymanowicz*</strong>,
+          Shideh Rezaeifar, <a href="https://www.microsoft.com/en-us/research/people/jinshen/">Jingjing Shen</a>, 
+          <a href="https://www.microsoft.com/en-us/research/people/matjoh/">Matthew Johnson</a>,
+          Julien Valentin
+          <br>
+          <em>arXiv</em>, 2022
+          <br>
+          <a href="https://arxiv.org/pdf/2208.00949.pdf">arXiv</a>
+          <p></p>
+          <p>We can controllably animate Neural Radiance Fields by deforming tetrahedral cages. Tetrahedral connectivity allows us to run the animations in real-time.</p>
+        </td>
+      </tr>
+
+
+
+      <tr>         
+        <td style="padding:20px;width:25%;vertical-align:middle" >
+          <img src='images/vqunet_teaser.png' width="160">
+        </td>
+                
+
+        <td style="padding:20px;width:75%;vertical-align:middle">
+          <a href="https://arxiv.org/pdf/2112.05585v1.pdf">
+            <span class="papertitle">Discrete neural representations for explainable anomaly detection</span>
+          </a>
+          <br>
+          <strong>Stanislaw Szymanowicz*</strong>,
+          <a href="http://www.jjcvision.com">James Charles</a>, 
+          <a href="https://mi.eng.cam.ac.uk/~cipolla/">Roberto Cipolla</a>
+          <br>
+          <em>WACV</em>, 2022
+          <br>
+          <a href="http://jjcvision.com/projects/vqunet_anomally_detection.html">project page</a>
+          /
+          <a href="https://youtu.be/3KLRi0biQvY">video</a>
+          /
+          <a href="https://arxiv.org/pdf/2112.05585v1.pdf">arXiv</a>
+          <p></p>
+          <p>We introduce an architecture for improved explainability of anomaly detection in CCTV videos.</p>
+        </td>
+      </tr>
+
+
+
+      <tr>         
+        <td style="padding:20px;width:25%;vertical-align:middle" >
+          <img src='images/xman_teaser.png' width="160">
+        </td>
+                
+
+        <td style="padding:20px;width:75%;vertical-align:middle">
+          <a href="http://mi.eng.cam.ac.uk/~cipolla/publications/inproceedings/2021-CVPR-XMAN-anomaly-detection.pdf">
+            <span class="papertitle">X-MAN: Explaining multiple sources of anomalies in video</span>
+          </a>
+          <br>
+          <strong>Stanislaw Szymanowicz*</strong>,
+          <a href="http://www.jjcvision.com">James Charles</a>, 
+          <a href="https://mi.eng.cam.ac.uk/~cipolla/">Roberto Cipolla</a>
+          <br>
+          <em>CVPR Workshop on Fair and Trusted Computer Vision</em>, 2021
+          <br>
+          <a href="http://jjcvision.com/projects/explaining_anomalies.html">project page</a>
+          /
+          <a href="https://www.youtube.com/watch?v=4fsQqNU-uNA">demo video</a>
+          /
+          <a href="http://mi.eng.cam.ac.uk/~cipolla/publications/inproceedings/2021-CVPR-XMAN-anomaly-detection.pdf">paper</a>
+          <p></p>
+          <p>We introduce a dataset and a method for detecting and explaining anomalies in CCTV videos.</p>
+        </td>
+      </tr>
+          </tbody></table>
+
+          <!--
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20"><tbody>
+            <tr>
+              <td>
+                <h2>Miscellanea</h2>
+              </td>
+            </tr>
+          </tbody></table>
+          <table width="100%" align="center" border="0" cellpadding="20"><tbody>
+            
+            <tr>
+              <td style="padding:20px;width:25%;vertical-align:middle"><img src="images/cvf.jpg"></td>
+              <td width="75%" valign="center">
+                <a href="https://cvpr2023.thecvf.com/Conferences/2023/Organizers">Demo Chair, CVPR 2023</a>
+          <br>
+                <a href="https://cvpr2022.thecvf.com/area-chairs">Area Chair, CVPR 2022</a>
+                <br>
+                <a href="http://cvpr2021.thecvf.com/area-chairs">Area Chair & Longuet-Higgins Award Committee Member, CVPR 2021</a>
+                <br>
+                <a href="http://cvpr2019.thecvf.com/area_chairs">Area Chair, CVPR 2019</a>
+                <br>
+                <a href="http://cvpr2018.thecvf.com/organizers/area_chairs">Area Chair, CVPR 2018</a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:20px;width:25%;vertical-align:middle">
+                <img src="images/cs188.jpg" alt="cs188">
+              </td>
+              <td width="75%" valign="center">
+                <a href="http://inst.eecs.berkeley.edu/~cs188/sp11/announcements.html">Graduate Student Instructor, CS188 Spring 2011</a>
+                <br>
+                <a href="http://inst.eecs.berkeley.edu/~cs188/fa10/announcements.html">Graduate Student Instructor, CS188 Fall 2010</a>
+                <br>
+                <a href="http://aima.cs.berkeley.edu/">Figures, "Artificial Intelligence: A Modern Approach", 3rd Edition</a>
+              </td>
+            </tr>
+            
+
+            <tr>
+              <td align="center" style="padding:20px;width:25%;vertical-align:middle">
+                <h2>Basically <br> Blog Posts</h2>
+              </td>
+              <td width="75%" valign="middle">
+                <a href="https://arxiv.org/abs/2112.11687">Squareplus: A Softplus-Like Algebraic Rectifier</a>
+                <br>
+                <a href="https://arxiv.org/abs/2010.09714">A Convenient Generalization of Schlick's Bias and Gain Functions</a>
+                <br>
+                <a href="https://arxiv.org/abs/1704.07483">Continuously Differentiable Exponential Linear Units</a>
+                <br>
+                <a href="https://jonbarron.info/data/cvpr2023_llm_workshop_annotated.pdf">Scholars & Big Models: How Can Academics Adapt?</a>
+              </td>
+            </tr>
+            
+            
+          </tbody></table>-->
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+              <td style="padding:0px">
+                <br>
+                <p style="text-align:middle;font-size:small;">
+                  Thank you to Jon Barron for the <a href="https://github.com/jonbarron/jonbarron_website">source code</a> for the website!
+                </p>
+              </td>
+            </tr>
+          </tbody></table>
+        </td> 
+      </tr>
+    </table>
+  </body>
+</html>
