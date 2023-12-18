@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Viewset Diffusion trains image-conditioned 3D generative models from 2D data.">
+  <meta name="keywords" content="Diffusion, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+
+  <title>Splatter Image</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./viewset-diffusion-static/css/bulma.min.css">
+  <link rel="stylesheet" href="./viewset-diffusion-static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./viewset-diffusion-static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./viewset-diffusion-static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./viewset-diffusion-static/css/index.css">
+  <link rel="icon" href="./viewset-diffusion-static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./viewset-diffusion-static/js/fontawesome.all.min.js"></script>
+  <script src="./viewset-diffusion-static/js/bulma-carousel.min.js"></script>
+  <script src="./viewset-diffusion-static/js/bulma-slider.min.js"></script>
+  <script src="./viewset-diffusion-static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://szymanowiczs.github.io">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://szymanowiczs.github.io/viewset-diffusion">
+            Viewset Diffusion
+          </a>
+          <a class="navbar-item" href="https://arxiv.org/abs/2208.00949">
+            VolTeMorph
+          </a>
+          <a class="navbar-item" href="https://arxiv.org/abs/2210.11594">
+            360 Avatars
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Splatter Image: Ultra-Fast Single-View <br> 3D Reconstruction</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://szymanowiczs.github.io">Stanislaw Szymanowicz</a>,</span>
+            <span class="author-block">
+              <a href="https://chrirupp.github.io">Christian Rupprecht</a>,</span>
+            <span class="author-block">
+              <a href="https://www.robots.ox.ac.uk/~vedaldi/">Andrea Vedaldi</a>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Visual Geometry Group - University of Oxford</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. 
+              <span class="link-block">
+                <a href="https://szymanowiczs.github.io/viewset-diffusion"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <div class="content has-text-centered">
+            <video id="summary-video"
+                   controls
+                   muted
+                   loop
+                   autoplay
+                   preload
+                   playsinline
+                   width="90%">
+              <source src="splatter-image-static/videos/teaser.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+      <h2 class="subtitle has-text-centered">
+        The <span class="dnerf">Splatter Image</span> is an ultra-fast method for single- and few-view 3D reconstruction.
+      </h2>
+      
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+   
+   
+          <p>
+            We introduce the Splatter Image, an ultra-fast approach for monocular 3D object reconstruction which operates at 38 FPS.
+          </p>
+          <p>
+            The Splatter Image is based on Gaussian Splatting, which has recently brought real-time rendering, fast training, and excellent scaling to multi-view reconstruction.
+            For the first time, we apply Gaussian Splatting in a monocular reconstruction setting.
+            Our approach is learning-based, and, at test time, reconstruction only requires the feed-forward evaluation of a neural network.
+            The main innovation of the Splatter Image is its surprisingly straightforward design: it uses a 2D image-to-image network to map the input image to one 3D Gaussian per pixel.
+            The resulting Gaussians thus have the form of an image, the Splatter Image.
+          </p>
+          <p>
+            We further extend the method to incorporate more than one image as input, which we do by adding cross-attention views.
+            Owning to the speed of the renderer (588 FPS), furthermore, we can easily generate entire images during training, to optimize perceptual metrics like LPIPS.
+            Furthermore, we use a single GPU for training.
+            On standard benchmarks, we demonstrate not only fast reconstruction but also better results than recent and much more expensive baselines in terms of PSNR, LPIPS, and other metrics.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!--/<div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+    <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3">Video</h2> <br>
+    </div>
+
+    <div class="content has-text-centered">
+            <iframe width="784" height="441" src="https://www.youtube.com/embed/pcKTf9SVh4g?si=7mYuKdUiLdCDizok" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+
+</div>
+</section>
+
+
+
+<!-- Method. -->
+<section class="section">
+    <div class="container is-max-desktop">
+
+    <h3 class="title is-4">Overview</h3>
+
+    <div class="columns is-centered">
+    <div class="column is-four-fifths">
+        <img src="./splatter-image-static/images/overview_website.pdf"
+            class="interpolation-image"
+            alt="Overview figure."/>
+    </div>
+    </div>
+    <div class="content has-text-justified">
+        <p>
+            The Splatter Image method uses Gaussian Splatting as the underlying 3D representation, taking advantage of its rendering quality and speed.
+            It works by applying an image-to-image neural network to the input view and obtain, as output, another image that holds the parameters of one coloured 3D Gaussian per pixel.
+            The resulting Gaussian mixture can be rendered very quickly into an arbitrary view of the object by using Gaussian Splatting.
+            Remarkably, the 3D Gaussians in the resulting `Splatter Image' provide high-quality 360 degree reconstructions even when compared to much slower methods.
+        </p>
+        <p>
+            The key challenge in using 3D Gaussians for monocular reconstruction is to design a network that takes an image of an object as input and produces as output a corresponding Gaussian mixture that represent all sides of it.
+            Our key insight is that, while a Gaussian mixture is a set, i.e., an unordered collection, it can still be stored in an ordered data structure.
+            Splatter Image takes advantage of this fact by using a <b>2D image</b> as container for the 3D Gaussians, so that each pixel contains in turn the parameters of one Gaussian, including its opacity, shape, and colour.
+        </p>
+        </div>
+    </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <h2 class="title is-3" style="margin-bottom:1.5cm;margin-top:1cm;">Results:  3D Reconstruction from a Single Image</h2>
+      </div>
+    </div>
+        <div class="content has-text-centered">
+            <video id="hydrants" controls muted loop autoplay preload playsinline width="75%">
+              <source src="splatter-image-static/videos/hydrants_loop.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="content has-text-centered">
+            <video id="teddybears" controls muted loop autoplay preload playsinline width="75%">
+              <source src="splatter-image-static/videos/teddybears_loop.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="content has-text-centered">
+            <video id="teddybears" controls muted loop autoplay preload playsinline width="75%">
+              <source src="splatter-image-static/videos/cars_loop.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="content has-text-centered">
+            <video id="teddybears" controls muted loop autoplay preload playsinline width="75%">
+              <source src="splatter-image-static/videos/chairs_loop.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+    </div>
+  </div>
+
+</section>
+  <section class="section">
+    <div class="container is-max-desktop">
+      
+    
+      <!-- More. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <!-- Ambiguity. -->
+          <h3 class="title is-4">Analysis</h3>
+          <div class="content has-text-justified">
+            <p>
+              The Splatter Image represents full 360 degrees of an object despite using a 2D data structure.
+              It represents unobserved object parts by allocating background pixels to appropriate 3D locations (third row) to predict occluded elements like wheels (left) or chair legs (middle). 
+              Alternatively, it predicts offsets in the foreground pixels to represent occluded chair parts (right).
+            </p>
+          </div>
+          <div class="columns is-centered">
+              <img src="./splatter-image-static/images/splatter_images_analysis_v2.pdf"
+                  class=""
+              alt="Ambiguity figure."/>
+          </div>
+  
+  
+        </div>
+      </div> 
+  
+      <!--/ Animation. -->
+  
+    </div>
+  </section>
+  <section class="hero is-light is-small">
+
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <h2 class="title is-3" style="margin-bottom:1.5cm;margin-top:1cm;">Comparisons:  3D Reconstruction from a Single Image</h2>
+      </div>
+    </div>
+        <div class="content has-text-centered">
+            <video id="hydrants" controls muted loop autoplay preload playsinline width="75%">
+              <source src="splatter-image-static/videos/comparisons_hydrant.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="content has-text-centered">
+            <video id="teddybears" controls muted loop autoplay preload playsinline width="75%">
+              <source src="splatter-image-static/videos/comparisons_teddybear.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="content has-text-centered">
+            <video id="teddybears" controls muted loop autoplay preload playsinline width="75%">
+              <source src="splatter-image-static/videos/comparisons_car.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="content has-text-centered">
+            <video id="teddybears" controls muted loop autoplay preload playsinline width="75%">
+              <source src="splatter-image-static/videos/comparisons_chair.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{szymanowicz2023splatter_image,
+  author    = {Szymanowicz, Stanislaw and Rupprecht, Christian and Vedaldi, Andrea},
+  title     = {Splatter Image: Ultra-Fast Single-View 3D Reconstruction},
+  journal   = {arXiv:},
+  year      = {2023},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Template was borrowed from <a
+            href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>
+          under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
