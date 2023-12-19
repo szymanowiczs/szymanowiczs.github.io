@@ -30,8 +30,6 @@
                 </p>
                 <p style="text-align:center">
                   <a href="mailto:stan@robots.ox.ac.uk">Email</a> &nbsp;/&nbsp;
-                  <!--  <a href="data/JonBarron-CV.pdf">CV</a> &nbsp;/&nbsp;
-                  <a href="data/JonBarron-bio.txt">Bio</a> &nbsp;/&nbsp;-->
                   <a href="https://scholar.google.com/citations?user=kPJKnRIAAAAJ&hl=en">Google Scholar</a> &nbsp;/&nbsp;
                   <a href="https://twitter.com/StanSzymanowicz">Twitter</a> &nbsp;/&nbsp;
                   <a href="https://github.com/szymanowiczs/">Github</a>
@@ -55,6 +53,51 @@
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           
     
+    <tr onmouseout="splatter_image_stop()" onmouseover="splatter_image_start()"  bgcolor="#ffffd0">
+      <td style="padding:20px;width:25%;vertical-align:middle">
+        <div class="one">
+          <div class="two" id='splatter_image_image'><video  width=100% height=100% muted autoplay loop>
+          <source src="splatter-image-static/videos/loop_teddybear.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+
+          </video></div>
+          <img src='splatter-image-static/videos/loop_source_teddybear.png' width="160">
+        </div>
+        <script type="text/javascript">
+          function splatter_image_start() {
+            document.getElementById('splatter_image_image').style.opacity = "1";
+          }
+
+          function splatter_image_stop() {
+            document.getElementById('splatter_image_image').style.opacity = "0";
+          }
+          splatter_image_stop()
+        </script>
+      </td>
+      <td style="padding:20px;width:75%;vertical-align:middle">
+        <a href="https://szymanowiczs.github.io/splatter-image">
+          <span class="papertitle">Splatter Image: Ultra-Fast Single-View 3D Reconstruction</span>
+        </a>
+        <br>
+        <strong>Stanislaw Szymanowicz</strong>,
+        <a href="https://chrirupp.github.io">Chrisitian Rupprecht</a>,
+        <a href="https://www.robots.ox.ac.uk/~vedaldi/">Andrea Vedaldi</a>
+        <br>
+        <em>arXiv</em>, 2023
+        <br>
+        <a href="https://github.com/szymanowiczs/splatter-image">code</a>
+        /
+        <a href="https://szymanowiczs.github.io/splatter-image">project page</a>
+        /
+        <a href="">arXiv</a>
+        <p></p>
+        <p>
+        We design a fast (38FPS), simple, 2D network for single-view 3D reconstruction that represents shapes with 3D Gaussians.
+        As a result, it can leverage Gaussian Splatting for rendering, achieves state-of-the-art quality in several cases and is trains on just a single GPU.
+        </p>
+      </td>
+    </tr>
+
     <!--<tr onmouseout="viewset_diff_stop()" onmouseover="viewset_diff_start()"  bgcolor="#ffffd0"> -->
     <tr onmouseout="viewset_diff_stop()" onmouseover="viewset_diff_start()"  bgcolor="#ffffd0">
         <td style="padding:20px;width:25%;vertical-align:middle">
@@ -88,9 +131,13 @@
           <br>
           <em>ICCV</em>, 2023
           <br>
+          <a href="https://github.com/szymanowiczs/viewset-diffusion">code</a>
+          /
           <a href="https://szymanowiczs.github.io/viewset-diffusion">project page</a>
           /
           <a href="https://arxiv.org/abs/2306.07881">arXiv</a>
+          /
+          <a href="https://openaccess.thecvf.com/content/ICCV2023/papers/Szymanowicz_Viewset_Diffusion_0-Image-Conditioned_3D_Generative_Models_from_2D_Data_ICCV_2023_paper.pdf">paper</a>
           <p></p>
           <p>
           Novel formulation of the denoising function in Diffusion Models lets us train 3D generative models from 2D data only. Our models can perform both few-view 3D reconstruction and 3D generation. 
@@ -180,7 +227,7 @@
             <span class="papertitle">Discrete neural representations for explainable anomaly detection</span>
           </a>
           <br>
-          <strong>Stanislaw Szymanowicz*</strong>,
+          <strong>Stanislaw Szymanowicz</strong>,
           <a href="http://www.jjcvision.com">James Charles</a>, 
           <a href="https://mi.eng.cam.ac.uk/~cipolla/">Roberto Cipolla</a>
           <br>
@@ -209,7 +256,7 @@
             <span class="papertitle">X-MAN: Explaining multiple sources of anomalies in video</span>
           </a>
           <br>
-          <strong>Stanislaw Szymanowicz*</strong>,
+          <strong>Stanislaw Szymanowicz</strong>,
           <a href="http://www.jjcvision.com">James Charles</a>, 
           <a href="https://mi.eng.cam.ac.uk/~cipolla/">Roberto Cipolla</a>
           <br>
