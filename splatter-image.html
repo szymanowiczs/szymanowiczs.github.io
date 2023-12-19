@@ -111,7 +111,7 @@
               </span>
               <!-- Video Link. -->
               <span class="link-block">
-                <a href=""
+                <a href="https://youtu.be/pcKTf9SVh4g"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-youtube"></i>
@@ -121,7 +121,7 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href=""
+                <a href="https://github.com/szymanowiczs/splatter-image"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -150,14 +150,33 @@
                    preload
                    playsinline
                    width="90%">
-              <source src="splatter-image-static/videos/teaser.mp4"
+              <source src="splatter-image-static/videos/teaser_v2.mp4"
                       type="video/mp4">
             </video>
           </div>
       <h2 class="subtitle has-text-centered">
         The <span class="dnerf">Splatter Image</span> is an ultra-fast method for single- and few-view 3D reconstruction.
+        Training is done on <b>1 GPU</b>, reconstruction is done at <b>38 FPS</b> and rendering at <b>588 FPS</b>.
       </h2>
-      
+      <div class="content has-text-centered">
+        <video id="summary-video"
+               controls
+               muted
+               loop
+               autoplay
+               preload
+               playsinline
+               width="90%">
+          <source src="splatter-image-static/videos/loot_paddington_large.mp4"
+                  type="video/mp4">
+
+        </video>
+                  
+      </div>
+      <h2 class="subtitle has-text-centered">
+        We can apply reconstruction frame-by-frame to reconstruct a dancing Paddington Bear in 3D.
+        Video shows the source images (left) and a novel view render (right).
+      </h2>
     </div>
   </div>
 </section>
@@ -170,8 +189,6 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-   
-   
           <p>
             We introduce the Splatter Image, an ultra-fast approach for monocular 3D object reconstruction which operates at 38 FPS.
           </p>
@@ -372,7 +389,7 @@
          href="">
         <i class="fas fa-file-pdf"></i>
       </a>
-      <a class="icon-link" href="" class="external-link" disabled>
+      <a class="icon-link" href="https://github.com/szymanowiczs/splatter-image" class="external-link" disabled>
         <i class="fab fa-github"></i>
       </a>
     </div>
