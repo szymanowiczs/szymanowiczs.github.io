@@ -80,12 +80,16 @@
             <span class="author-block">
               <a href="https://chrirupp.github.io">Christian Rupprecht</a>,</span>
             <span class="author-block">
-              <a href="https://www.robots.ox.ac.uk/~vedaldi/">Andrea Vedaldi</a>,
+              <a href="https://www.robots.ox.ac.uk/~vedaldi/">Andrea Vedaldi</a>
             </span>
           </div>
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">Visual Geometry Group - University of Oxford</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">CVPR 2024</span>
           </div>
 
           <div class="column has-text-centered">
@@ -101,7 +105,7 @@
                 </a>
               </span> -->
               <span class="link-block">
-                <a href=""
+                <a href="https://arxiv.org/abs/2312.13150"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -129,6 +133,15 @@
                   <span>Code</span>
                   </a>
               </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/spaces/szymanowiczs/splatter_image"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fa fa-desktop"></i>
+                  </span>
+                  <span>Demo</span>
+                  </a>
+              </span>
             </div>
 
           </div>
@@ -153,6 +166,17 @@
               <source src="splatter-image-static/videos/teaser_v2.mp4"
                       type="video/mp4">
             </video>
+            <video id="summary-video"
+              controls
+              muted
+              loop
+              autoplay
+              preload
+              playsinline
+              width="90%">
+                <source src="splatter-image-static/videos/gso_loop.mp4"
+                        type="video/mp4">
+              </video>
           </div>
       <h2 class="subtitle has-text-centered">
         The <span class="dnerf">Splatter Image</span> is an ultra-fast method for single- and few-view 3D reconstruction.
@@ -270,30 +294,36 @@
         <h2 class="title is-3" style="margin-bottom:1.5cm;margin-top:1cm;">Results:  3D Reconstruction from a Single Image</h2>
       </div>
     </div>
-        <div class="content has-text-centered">
-            <video id="hydrants" controls muted loop autoplay preload playsinline width="75%">
-              <source src="splatter-image-static/videos/hydrants_loop.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-          <div class="content has-text-centered">
-            <video id="teddybears" controls muted loop autoplay preload playsinline width="75%">
-              <source src="splatter-image-static/videos/teddybears_loop.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-          <div class="content has-text-centered">
-            <video id="teddybears" controls muted loop autoplay preload playsinline width="75%">
-              <source src="splatter-image-static/videos/cars_loop.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-          <div class="content has-text-centered">
-            <video id="teddybears" controls muted loop autoplay preload playsinline width="75%">
-              <source src="splatter-image-static/videos/chairs_loop.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
+      <div class="content has-text-centered">
+        <video id="hydrants" controls muted loop autoplay preload playsinline width="75%">
+          <source src="splatter-image-static/videos/gso_loop.mp4"
+                  type="video/mp4">
+        </video>
+      </div>
+      <div class="content has-text-centered">
+        <video id="hydrants" controls muted loop autoplay preload playsinline width="75%">
+          <source src="splatter-image-static/videos/hydrants_loop.mp4"
+                  type="video/mp4">
+        </video>
+      </div>
+      <div class="content has-text-centered">
+        <video id="teddybears" controls muted loop autoplay preload playsinline width="75%">
+          <source src="splatter-image-static/videos/teddybears_loop.mp4"
+                  type="video/mp4">
+        </video>
+      </div>
+      <div class="content has-text-centered">
+        <video id="teddybears" controls muted loop autoplay preload playsinline width="75%">
+          <source src="splatter-image-static/videos/cars_loop.mp4"
+                  type="video/mp4">
+        </video>
+      </div>
+      <div class="content has-text-centered">
+        <video id="teddybears" controls muted loop autoplay preload playsinline width="75%">
+          <source src="splatter-image-static/videos/chairs_loop.mp4"
+                  type="video/mp4">
+        </video>
+      </div>
 
     </div>
   </div>
@@ -337,6 +367,12 @@
         <h2 class="title is-3" style="margin-bottom:1.5cm;margin-top:1cm;">Comparisons:  3D Reconstruction from a Single Image</h2>
       </div>
     </div>
+      <div class="content has-text-centered">
+        <video id="hydrants" controls muted loop autoplay preload playsinline width="75%">
+          <source src="splatter-image-static/videos/comparisons_gso.mp4"
+                  type="video/mp4">
+        </video>
+      </div>
         <div class="content has-text-centered">
             <video id="hydrants" controls muted loop autoplay preload playsinline width="75%">
               <source src="splatter-image-static/videos/comparisons_hydrant.mp4"
@@ -372,11 +408,11 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{szymanowicz2023splatter_image,
+    <pre><code>@article{szymanowicz2024splatter_image,
   author    = {Szymanowicz, Stanislaw and Rupprecht, Christian and Vedaldi, Andrea},
   title     = {Splatter Image: Ultra-Fast Single-View 3D Reconstruction},
-  journal   = {arXiv:},
-  year      = {2023},
+  journal   = {Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year      = {2024},
 }</code></pre>
   </div>
 </section>
