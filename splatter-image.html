@@ -11,7 +11,7 @@
 
   <title>Splatter Image</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro|Helvetica"
         rel="stylesheet">
 
   <link rel="stylesheet" href="./viewset-diffusion-static/css/bulma.min.css">
@@ -154,18 +154,9 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <h2 class="subtitle has-text-justified">
-
-      <p><b>[16 Apr 2024]</b> Several big updates to the project since the first release:</p>
-      <ul>
-        <li> - We can now reconstruct <b>any object</b>: we trained open-category model trained on Objaverse in just 7 GPU days</li>
-        <li> - We now have a <b><a href="https://huggingface.co/spaces/szymanowiczs/splatter_image">demo</a></b> where you can upload your own pictures of <b>any object</b> and have our model reconstruct it</li>
-        <li> - Models for all 6 datasets are now <b>released</b>. We trained 6 models: on Objaverse, multi-category ShapeNet, CO3D hydrants, CO3D teddybears, ShapeNet cars and ShapeNet chairs.</li>
-        <li> - <b>SOTA</b> on multi-category ShapeNet</li>
-        <li> - Support for multi-GPU training</li>
-        <li> - No camera pose pre-processing in CO3D</li>
-      </ul>
-    </h2>
+      <h2 class="subtitle has-text-centered">
+        The <span class="dnerf">Splatter Image</span> is the fastest (reconstruction at <b>38 FPS</b>, rendering at <b>588 FPS</b>) and the cheapest method (training on <b>1 GPU</b> for <b>7 days</b>) for single- and few-view 3D reconstruction of <b>any</b> object with <b>SOTA results</b>.
+      </h2>
 
         <div class="content has-text-centered">
             <video id="summary-video"
@@ -191,10 +182,7 @@
                         type="video/mp4">
               </video>
           </div>
-      <h2 class="subtitle has-text-centered">
-        The <span class="dnerf">Splatter Image</span> is an ultra-fast method for single- and few-view 3D reconstruction.
-        Training is done on <b>1 GPU</b>, reconstruction is done at <b>38 FPS</b> and rendering at <b>588 FPS</b>.
-      </h2>
+
       <div class="content has-text-centered">
         <video id="summary-video"
                controls
