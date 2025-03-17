@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Bolt3D: Generating 3D Scenes in Seconds</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bolt3d/css/app.css">
+    <link rel="stylesheet" href="bolt3d/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script defer src="js/fontawesome.all.min.js"></script>
+
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', async function () {
+            const warningElement = document.getElementById('warning-msg');
+            const contentElement = document.getElementById('viewer-content');
+            const canvas = document.getElementById('brush_canvas');
+
+
+            const fallbackVideo = document.getElementById('viewer-fallback-video');
+            var viewerActive = false;
+            fallbackVideo.src = `bolt3d/models/car_interactive.webm`
+
+            // Warn when running without a server.
+            if (window.location.protocol === 'file:') {
+                warningElement.style.display = 'block';
+
+                const child = document.createElement('p');
+                child.classList = "warning-message";
+                child.innerHTML =
+                    "The interactive viewer is only supported in Chrome." +
+                    "As a fallback you can view a recording of the interactive viewer below.";
+
+                warningElement.appendChild(child);
+
+                // Hide the viewer content.
+                canvas.style.display = 'none';
+            }
+            // Warn when WebGPU isn't supported.
+            else if (!('gpu' in navigator)) {
+                warningElement.style.display = 'block';
+
+                const child = document.createElement('p');
+                child.classList = "warning-message";
+                child.innerHTML =
+                    'Your browser does not appear to support the WebGPU API. Currently, only Chrome is supported currently. For linux, please enable WebGPU.';
+                warningElement.appendChild(child);
+                contentElement.style.display = 'none';
+            }
+            // Load the viewer if things are all good.
+            else {
+                const brush_js = await import('bolt3d/brush-demo/brush-app-977f9efa41c86440.js');
+                const init = brush_js.default;
+                const bindings = { ...brush_js };
+
+                const originalFocus = HTMLElement.prototype.focus;
+                HTMLElement.prototype.focus = function () {
+                    if (!this.matches('[id="brush_canvas"]')) {
+                        originalFocus.apply(this, arguments);
+                    }
+                };
+
+                const wasm = await init({ module_or_path: 'bolt3d/brush-demo/brush-app-977f9efa41c86440_bg.wasm' });
+                window.wasmBindings = bindings;
+
+                const baseUrl = "https://storage.googleapis.com/realtime-nerf-360/glgm"
+                // const baseUrl = `${window.origin}/models`
+                const start_url = `${baseUrl}/img_1_140.compressed.ply`
+
+                console.log(start_url);
+
+                var start_cmd = `?url=${start_url}&zen=true&start_distance=0.25&focal=1.0&focus_distance=1.05&speed_scale=0.075`
+                const viewer = new window.wasmBindings.EmbeddedApp("brush_canvas", start_cmd)
+                window.viewer = viewer;
+
+                window.load_model = function (name) {
+                    viewer.load_url(`${baseUrl}/${name}.compressed.ply`)
+                }
+
+
+                viewer.set_camera_settings(new window.wasmBindings.CameraSettings(
+                    /* focal: f64*/ 1.0,
+                    /* start_distance: f32*/ 0.4,
+                    /* focus_distance: f32*/ 0.95,
+                    /* speed_scale: f32*/ 0.075,
+                    /* min_focus_distance: Option<f32>*/ 0.4,
+                    /* max_focus_distance: Option<f32>*/ 1.2,
+                    /* min_pitch: Option<f32>*/ -50.0,
+                    /* max_pitch: Option<f32>*/ 5.0
+                ))
+
+                fallbackVideo.style.display = 'none';
+                viewerActive = true;
+            }
+
+            function generateModelPills(modelNames) {
+                // Get the container element
+                const container = document.getElementById('viewer-pills');
+
+                // Generate a pill for each model name
+                modelNames.forEach(modelName => {
+                    // Create the pill HTML
+                    const pillHTML = `
+                        <div class="pill scene-pill-large">
+                            <a onclick='window.load_model("${modelName}")'>
+                            <video class="card-img" src="bolt3d/models/${modelName}.mp4"
+                                    onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;">
+                            </video>
+                            </a>
+                        </div>
+                        `;
+
+                    // Append the pill to the container
+                    container.innerHTML += pillHTML;
+                });
+            }
+            const modelNames = [
+                "img_1_140",
+                "kitchen",
+                "frog",
+                "forest",
+                "18c9c394-da40-43f2-84d6-c444890df88b",
+                "lighthouse",
+                "bedroom3",
+                "A_cute_corgi_lives_in_a_house_made_out_of_sushi",
+                "teddybear_skate_i2v",
+                "bike",
+                "living_room",
+                "resolute",
+                "IMG_7841",
+                "img_0_10",
+            ];
+            generateModelPills(modelNames)
+
+            const shuffleArray = array => {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    const temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+
+            const premiumVideoPaths = [
+                "bike_src.webm",
+
+
+                "bonefire_i2v.webm",
+
+                "26_input_src_loop_loop.webm",
+                "car_src_loop_loop.webm",
+                "IMG_3750_src_loop_loop.webm",
+                "panda_popcorn_i2v_src_loop_loop.webm",
+                "teddybear_snow_i2v_src_loop_loop.webm",
+
+                "05d3319c-c749-4340-a0bf-871d1db7698b_src_spiral_spiral.webm",
+                "E8F2615C-944F-4F80-85D9-5B5AB6D7CC30_src_spiral_spiral.webm",
+                "4d80ee39-e1b3-4fdf-aea3-52253f60b0e2_src_spiral_spiral.webm",
+                "A_dark_alleyway_in_a_rainstorm_src_spiral_spiral.webm",
+                "_The_Girl_with_a_Pearl_Earring__by_Johannes_Vermeer_src_spiral_spiral.webm",
+                "robot_i2v_src_spiral_spiral.webm",
+                "wave_i2v_src_spiral_spiral.webm",
+            ]
+
+            // Update this with gen_file_list.py.
+            const videoPaths = [
+                "img_0_10_src.webm",
+                "18c9c394-da40-43f2-84d6-c444890df88b_src_spiral_spiral.webm",
+                "bedroom3_src.webm",
+
+                "panda_car_i2v_src_loop_loop.webm",
+                "IMG_20160322_200534_src_spiral_spiral.webm",
+                "IMG_2729_src_spiral_spiral.webm",
+                "A_minimap_diorama_of_a_cafe_adorned_with_indoor_plants_src_spiral_spiral.webm",
+                "sloth_i2v_src_loop_loop.webm",
+                "IMG_7841_src_spiral_spiral.webm",
+                "IMG_1295_src_spiral_spiral.webm",
+                "skeleton_i2v_src_loop_loop.webm",
+                "panda_bamboo_i2v_src_loop_loop.webm",
+                "IMG_0752_src_spiral_spiral.webm",
+                "PXL_20240421_134255779_src_spiral_spiral.webm",
+                "A_cute_corgi_lives_in_a_house_made_out_of_sushi_src_loop_loop.webm",
+                "IMG_5279_src_spiral_spiral.webm",
+                "5ADD4FB0-DC1D-4C75-A7AA-ED046B333009_src_loop_loop.webm",
+                "IMG_7262_src_spiral_spiral.webm",
+                "A_Maine_Coon_sprawls_across_a_leather_sofa,_its_tail_hanging_over_the_edge,_a_nature_documentary_playing_softly_on_the_television_src_spiral_spiral.webm",
+                "IMG_7838_src_loop_loop.webm",
+                "A_photo_of_a_confused_racoon_in_computer_programming_class_src_spiral_spiral.webm",
+                "A_3D_printed_cat-robot_hybrid_sits_slumped_amidst_a_chaotic_mess_of_papers_covered_in_complex_equations_and_diagrams,_its_metallic_paws_loosely_curled_and_LED_eyes_dimmed_src_loop_loop.webm",
+                "IMG_0799_src_spiral_spiral.webm",
+                "IMG_7892_src_spiral_spiral.webm",
+                "teddybear_nyc_i2v_src_spiral_spiral.webm",
+                "IMG_0843_src_spiral_spiral.webm",
+                "monkey_coffee_i2v_src_loop_loop.webm",
+                "IMG_7979_src_spiral_spiral.webm",
+                "A_crab_made_of_cheese_on_a_plate_src_spiral_spiral.webm",
+                "IMG_5928_src_spiral_spiral.webm",
+                "20_input_src_loop_loop.webm",
+                "A_Persian_cat_naps_in_a_sunbeam_streaming_through_a_window,_its_fur_shimmering,_a_half-finished_crossword_puzzle_lying_on_the_table_src_spiral_spiral.webm",
+                "A_Maine_Coon_sprawls_across_a_cluttered_desk_src_spiral_spiral.webm",
+                "bee_i2v_src_loop_loop.webm",
+                "IMG_9160_src_loop_loop.webm",
+                "A_Persian_cat_nestles_in_a_basket_of_laundry,_its_fur_ruffled_as_a_forgotten_podcast_plays_softly_src_loop_loop.webm",
+                "IMG_2991_src_spiral_spiral.webm",
+                "7c3707e2d3425b9c.webm",
+                "8b5b10275b8a2d7e.webm",
+                "91a772967d0c828b.webm",
+                "8725e58028e2f1fe.webm",
+                "836441bc56499fd6.webm",
+                "809859830a3e0e55.webm",
+                "849115291c948385.webm",
+            ];
+
+            shuffleArray(premiumVideoPaths);
+            shuffleArray(videoPaths);
+
+            var intervalId = window.setInterval(function () {
+                document.querySelector('#thumbnails').querySelectorAll('video').forEach(async vid => {
+                    try {
+                        await vid.play()
+                    } catch (e) {
+                        //Can happen when interrupting a load, meh.
+                    }
+                });
+            }, 1000);
+
+            var thumbnails = document.getElementById("thumbnails");
+            console.log(thumbnails);
+
+            var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            const currentOrigin = window.location.origin;
+
+            let paths = [...premiumVideoPaths, ...videoPaths]
+
+            var i = 0;
+            for (let videoPath of paths) {
+                // Create column element for each video
+                var column = document.createElement("DIV");
+                column.className = "col-lg-3 col-md-4 col-sm-6 mb-4";
+
+                var outer = document.createElement("DIV");
+                outer.className = "thumbnail outer card h-100";
+                outer.style.position = "relative";
+
+                var inner = document.createElement("DIV");
+                inner.style.padding = "5px";
+                inner.className = "inner card-body";
+
+                // Create thumbnail image
+                var thumbnailImg = document.createElement("IMG");
+
+                // Generate thumbnail path from video path
+                let thumbnailPath = videoPath.replace(".webm", ".png");
+                // Remove the special suffixes
+                thumbnailPath = thumbnailPath
+                    .replace("_src_loop_loop", "_input")
+                    .replace("_src_loop_spiral", "_input")
+                    .replace("_src_spiral_loop", "_input")
+                    .replace("_src_spiral_spiral", "_input")
+                    .replace("_src", "_input");
+
+                thumbnailImg.src = `bolt3d/gallery_videos_compressed/${thumbnailPath}`;
+                thumbnailImg.className = "thumbnail-overlay";
+                thumbnailImg.style.position = "absolute";
+                thumbnailImg.style.top = "5px";
+                thumbnailImg.style.left = "5px";
+                thumbnailImg.style.width = "70px";
+                thumbnailImg.style.height = "70px";
+                thumbnailImg.style.zIndex = "10";
+                thumbnailImg.style.borderRadius = "3px";
+                thumbnailImg.style.border = "1px solid white";
+                thumbnailImg.style.transition = "transform 0.2s ease";
+
+                thumbnailImg.onmouseover = function () {
+                    this.style.transform = "scale(1.6)";
+                };
+
+                thumbnailImg.onmouseout = function () {
+                    this.style.transform = "scale(1)";
+                };
+
+                var componentVideo = document.createElement("VIDEO");
+                componentVideo.loop = true;
+                componentVideo.playsinline = true;
+                componentVideo.muted = true;
+                componentVideo.style.width = "100%"
+                componentVideo.autoplay = true;
+
+                const vid_src = `bolt3d/gallery_videos_compressed/${videoPath}`;
+
+                if (isIOS) {
+                    // Autoplay doesn't seem to work.
+                    componentVideo.className = "video";
+                    componentVideo.src = vid_src
+                    componentVideo.controls = false;
+                } else {
+                    componentVideo.controls = false;
+                    componentVideo.className = "video";
+                    componentVideo.onmousemove = componentVideo.play;
+                    componentVideo.onmouseout = componentVideo.play;
+                    componentVideo.onkeyup = componentVideo.play;
+                    componentVideo.onmouseover = componentVideo.play;
+                    componentVideo.src = vid_src;
+                }
+
+                inner.appendChild(componentVideo);
+                outer.appendChild(inner);
+                outer.appendChild(thumbnailImg); // Add thumbnail to the card
+                column.appendChild(outer);
+                thumbnails.appendChild(column);
+
+                i += 1;
+                // Timslice this so browser doesn't lock up when loading.
+                if (i % 15 === 0) {
+                    await new Promise(resolve => setTimeout(resolve, 0));
+                }
+            }
+        });
+    </script>
+
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', async function () {
+
+            const playbackSpeeds = {
+                "flash3d": [1.5, 1.5],
+                "cat3d_1": [1.0, 1.0],
+                "realmdreamer": [1.0, 1.0],
+                "cat3d_3": [1.0, 1.0],
+            };
+            const labels = {
+                "flash3d": "Flash3D",
+                "cat3d_1": "CAT3D (x64 more expensive)",
+                "realmdreamer": "RealmDreamer (x600 more expensive)",
+                "cat3d_3": "CAT3D (x300 more expensive)",
+            }
+
+            var compareDiv = document.querySelector("#baseline-compare")
+            var activeMethod = "flash3d"
+            var activeScene = "00ca5123d8ff6f83"
+
+            // Select all elements with the class 'method-pill'
+            const methodPills = compareDiv.querySelectorAll('.method-pill');
+
+            const videoParent = compareDiv.querySelector(".video-container");
+            const leftVideo = videoParent.querySelector('#single-comp-left')
+            const rightVideo = videoParent.querySelector('#single-comp-right')
+            const scenePillContainers = compareDiv.querySelectorAll(`.scene-pills`);
+
+            const leftLabel = videoParent.querySelector("#single-comp-label-left")
+
+            for (var methodPill of methodPills) {
+                const method = methodPill.getAttribute('data-value');
+                // Select all scene pill containers
+                const scenePillContainer = compareDiv.querySelector(`#${method}-pills`);
+                const scenePills = scenePillContainer.querySelectorAll(".scene-pill")
+
+                for (var scenePill of scenePills) {
+                    scenePill.addEventListener('click', function () {
+                        activeScene = this.getAttribute("data-value")
+                        updateDisplay();
+                    });
+                }
+
+                // Attach a click event listener to each pill
+                methodPill.addEventListener('click', function () {
+                    activeMethod = method
+                    const scenePillContainer = compareDiv.querySelector(`#${method}-pills`);
+                    const scenePills = scenePillContainer.querySelectorAll(".scene-pill")
+                    activeScene = scenePills[0].getAttribute("data-value")
+                    updateDisplay();
+                });
+            }
+
+            function updateDisplay() {
+                methodPills.forEach(p => p.classList.remove('active'));
+                methodPills.forEach(methodPill => {
+                    if (methodPill.getAttribute('data-value') == activeMethod) {
+                        methodPill.querySelector('a').classList.add('active');
+                    } else {
+                        methodPill.querySelector('a').classList.remove('active')
+                    }
+                });
+
+                // Show/Hide scene pill containers based on the selected method
+                scenePillContainers.forEach(container => {
+                    if (container.id === `${activeMethod}-pills`) {
+                        container.style.display = ''; // Or 'block' depending on your layout
+                    } else {
+                        container.style.display = 'none';
+                    }
+                });
+
+                const scenePillContainer = compareDiv.querySelector(`#${activeMethod}-pills`);
+                const scenePills = scenePillContainer.querySelectorAll(".scene-pill")
+
+                for (scenePill of scenePills) {
+                    if (scenePill.getAttribute('data-value') == activeScene) {
+                        scenePill.classList.add('active');
+                    } else {
+                        scenePill.classList.remove('active')
+                    }
+                }
+
+                // Update video display. This still has a small flash, could double buffer the video like before, but
+                // as long as the layout stays consistent it really isn't bad.
+                leftVideo.src = `bolt3d/comparison/${activeMethod}/baseline/${activeScene}.mp4`
+
+                // HACK: Realmdreamer and cat3d_1 have the same 'ours', so just share those files.
+                if (activeMethod == "realmdreamer") {
+                    rightVideo.src = `bolt3d/comparison/cat3d_1/ours/${activeScene}.mp4`
+                }
+                else {
+                    rightVideo.src = `bolt3d/comparison/${activeMethod}/ours/${activeScene}.mp4`
+                }
+
+                var [lr, rr] = playbackSpeeds[activeMethod];
+                leftVideo.playbackRate = lr;
+                rightVideo.playbackRate = rr;
+                // Manually update aspect ratio so layout doesn't have a weird flash.
+                videoParent.style.aspectRatio = 2.25;
+                leftLabel.innerHTML = labels[activeMethod];
+            }
+            // Update initial display
+            updateDisplay()
+        });
+    </script>
+</head>
+
+<body style="padding: 5%; padding-top: min(15px, 5%); padding-bottom: min(5px, 5%); width: 100%">
+    <div class="container-lg text-center" style="max-width: 1500px; margin: auto;" id="main">
+        <header role="banner">
+            <div class="row">
+                <h2 class="col-md-12 text-center">
+                    <b>Bolt3D:</b> Generating 3D Scenes in Seconds</br>
+                </h2>
+                <h4 class="col-md-12 text-center mb-4">
+                </h4>
+            </div>
+
+            <div class="row text-center">
+                <div class="col-md-3">
+                </div>
+                <div class="container-fluid text-center">
+                    <ul class="list-inline" style="white-space: nowrap; margin:0px 0px 0px 0px;">
+                        <li><a style="font-size: calc(min(3vw, 15px))" href="https://szymanowiczs.github.io/">Stanislaw
+                                Szymanowicz¹𝄒²</a></li>
+                        <li><a style="font-size: calc(min(3vw, 15px))" href="https://jasonyzhang.com/">Jason Y. Zhang
+                                ¹</a></li>
+                        <li><a style="font-size: calc(min(3vw, 15px))" href="https://pratulsrinivasan.github.io/">Pratul
+                                Srinivasan³</a>
+                        </li>
+                        <li><a style="font-size: calc(min(3vw, 15px))" href="https://ruiqigao.github.io/">Ruiqi Gao³</a>
+                        </li>
+                        <li><a style="font-size: calc(min(3vw, 15px))" href="https://github.com/ArthurBrussee">Arthur
+                                Brussee
+                                ³</a></li><br>
+                        <li><a style="font-size: calc(min(3vw, 15px))" href="https://holynski.org/">Aleksander
+                                Holynski³</a></li>
+                        <li><a style="font-size: calc(min(3vw, 15px))" href="https://ricardomartinbrualla.com/">Ricardo
+                                Martin-Brualla¹</a></li>
+                        <li><a style="font-size: calc(min(3vw, 15px))" href="https://jonbarron.info/">Jonathan T.
+                                Barron³</a></li>
+                        <li><a style="font-size: calc(min(3vw, 15px))" href="https://henzler.github.io/">Philipp
+                                Henzler¹</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-12 text-center" style="font-size: calc(min(3vw, 15px))">
+                    ¹Google Research&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;²VGG, University of Oxford
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;³Google DeepMind
+                </div>
+
+            </div>
+
+            <div class="row text-center">
+                <span class="link-block" style="padding-top: 10px; padding-bottom: 10px">
+                    <a href="" class="external-link button is-normal is-rounded is-dark"
+                        style="width: 80px; font-size: 15px">
+                        <span class="icon">
+                            <i class="ai ai-arxiv"></i>
+                        </span>
+                        <span>arXiv</span>
+                    </a>
+                    <!-- <a href="gallery.html" class="external-link button is-normal is-rounded is-dark"
+                        style="width: 120px; font-size: 15px">
+                        <span>Gallery</span>
+                    </a> -->
+                </span>
+            </div>
+        </header>
+
+
+        <main role="main">
+
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <video id="co3d-grid" poster="" width="100%" autoplay loop muted controls playsinline>
+                        <source src="bolt3d/videos/teaser_video_website.m4v" type="video/mp4">
+                        </source>
+                        <!-- <source src="videos/teaser_top_inside.m4v" type="video/mp4"></source> -->
+                    </video>
+                </div>
+            </div>
+
+            
+            <div class="row">
+                <div class="col-md-8 offset-md-2 rounded"
+                style="text-align: center; padding-bottom: 0px; padding-top: 5px; background-color: #d0d5ec;">
+                <h6 style="text-align: center; color:rgb(0, 0, 0)"><strong>TL;DR</strong>: Generate 3D scenes from one or more images in a feed-forward manner, taking 6.25s on a single GPU.</h6>
+                </div>
+            </div><br><br>
+            
+            <br />
+            <div class="row">
+                <div class="">
+                    <h3 class="col-md-8 offset-md-2"> How it works </h3>
+                    <p class="col-md-8 offset-md-2" style="text-align: left;">
+                        Given one or more input images, we generate multi-view Splatter Images.
+                        To do so, we first generate the scene appearance and geometry using a multi-view diffusion model.
+                        Then, Splatter Images are regressed using a Gaussian Head.
+                        3D Gaussians from multiple Splatter Images are combined to form the 3D scene.
+                    </p>
+                    <video muted loop autoplay src="bolt3d/videos/howitworks_website.m4v" style="max-width:960px" width=65%>
+                        An animated diagram briefly describing the method. On the left, an input image is shown. Next
+                        are the rotating Splatter Images. On the right is the full 3D scene.
+                    </video>
+                </div>
+            </div><br><br>
+            
+            <div id="viewer">
+                <div class="row">
+                    <h2 class="col-md-12 text-center">
+                        <br>Interactive Viewer<br>
+                    </h2>
+                    <div class="col-md-8 offset-md-2 rounded card" style="background-color: #d0d5ec;">
+                        <br />
+
+                        <div id="warning-msg" style="display: none" class="warning">
+                            <div class="warning-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 8v5"></path>
+                                    <circle cx="12" cy="16" r="0.5" fill="currentColor"></circle>
+                                </svg>
+                                Viewer not supported
+                            </div>
+                        </div>
+
+                        <div id="viewer-content">
+                            <canvas id="brush_canvas"
+                                style="width: 90%; aspect-ratio: 1/1; text-align:center; display: block; position: relative; margin-left: auto; margin-right: auto;"></canvas>
+
+                            <video id="viewer-fallback-video" loop playsinline autoplay muted
+                                style="width: 90%; aspect-ratio: 1/1; text-align:center; display: block; position: relative; margin-left: auto; margin-right: auto;"></video>
+
+
+                            <p class="text-center" style="text-align: center;">
+                                Click on the images below to render 3D scenes in real-time in your browser.
+                            </p>
+
+                            <div class="pill-row scene-pills" id="viewer-pills" role="group"
+                                aria-relevant="additions text">
+                            </div>
+                        </div>
+
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <br />
+
+            <div class="row">
+                <h2 class="col-md-12 text-center">
+                    Result Gallery</br>
+                </h2>
+            </div>
+
+            <div class="row">
+                <div class="container" id="videoGallery">
+                    <br />
+                    <div id="thumbnails" class="row">
+                        <!-- Videos will be added here -->
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="geometry_vae-ours">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <h3> Geometry VAE</h3>
+                        <p class="text-justify" style="text-align: left;">
+                            The key to generating high-quality 3D scenes with a latent diffusion model is our Geometry VAE, 
+                            capable of compressing pointmaps with high accuracy.
+                            We find empirically that our VAE with a transformer decoder is more appropriate for autoencoding pointmaps
+                            than a VAE with a convolutional decoder or a VAE pre-trained for autoencoding images.
+                            Below we visualize colored point clouds using (1) Pointmaps from data, (2) Pointmaps autoencoded with our VAE, 
+                            (3) Pointmaps autoencoded with a VAE with a convolutional decoder and (4) Pointmaps autoencoded with a pre-trained Image VAE.
+                        </p>
+
+                        <table style="margin-left: auto; margin-right: auto; width: 100%;">
+                            <tr>
+                                <th style="text-align: center;width: 25%;">Data</th>
+                                <th style="text-align: center;width: 25%;">Our AE</th>
+                                <th style="text-align: center;width: 25%;">Conv. AE</th>
+                                <th style="text-align: center;width: 25%;">Image AE</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="4" style="width: 100%">
+                                    <video id="geometry_ours_video" class="video" width=100% loop playsinline
+                                        autoplay muted controls>
+                                        <source src="bolt3d/videos/geometry_vae/render_053.m4v" />
+                                    </video>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+
+                    <div class="pill-row scene-pills" id="cameratime-pills" role="group"
+                        aria-relevant="additions text">
+                        <div class="pill scene-pill" data-value="render_053">
+                            <img class="card-img" src="bolt3d/videos/geometry_vae/render_053.png">
+                        </div>
+                        <div class="pill scene-pill" data-value="render_002">
+                            <img class="card-img" src="bolt3d/videos/geometry_vae/render_000.png">
+                        </div>
+                        <div class="pill scene-pill" data-value="render_007">
+                            <img class="card-img" src="bolt3d/videos/geometry_vae/render_007.png">
+                        </div>
+                        <div class="pill scene-pill" data-value="render_046">
+                            <img class="card-img" src="bolt3d/videos/geometry_vae/render_046.png">
+                        </div>
+                        <div class="pill scene-pill" data-value="render_000">
+                            <img class="card-img" src="bolt3d/videos/geometry_vae/render_000.png">
+                        </div>
+                        <div class="pill scene-pill" data-value="render_020">
+                            <img class="card-img" src="bolt3d/videos/geometry_vae/render_020.png">
+                        </div>
+                        <div class="pill scene-pill" data-value="render_059">
+                            <img class="card-img" src="bolt3d/videos/geometry_vae/render_059.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+
+            <script>
+                compareDiv = document.querySelector("#geometry_vae-ours")
+                activeScene_cameratime = "render_053"
+
+                const methodPills_cameratime = compareDiv.querySelectorAll('.method-pill');
+                const scenePills_cameratime = compareDiv.querySelectorAll(".scene-pill")
+                const showVideo_cameratime = compareDiv.querySelector('#geometry_ours_video')
+
+                for (scenePill of scenePills_cameratime) {
+                    scenePill.addEventListener('click', function () {
+                        activeScene_cameratime = this.getAttribute('data-value');
+                        updateDisplayCameraTime();
+                    });
+                }
+
+                function updateDisplayCameraTime() {
+                    for (scenePill of scenePills_cameratime) {
+                        if (scenePill.getAttribute('data-value') == activeScene_cameratime) {
+                            scenePill.classList.add('active');
+                        } else {
+                            scenePill.classList.remove('active')
+                        }
+                    }
+                    showVideo_cameratime.src = `bolt3d/videos/geometry_vae/${activeScene_cameratime}.m4v`
+                    showVideo_cameratime.playbackRate = 1.0;
+                }
+                // Update initial display
+                updateDisplayCameraTime()
+
+            </script>
+
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <h3> Comparison to other methods</h3>
+                    <p class="text-justify" style="text-align: left;">
+                        Compare the renders of our method Bolt3D (right) with feed-forward and optimization-based methods (left). Try
+                        selecting different methods and scenes!
+                    </p>
+
+                    <div id="baseline-compare">
+                        <div class="row m-2">
+                            <ul class="nav nav-pills justify-content-center" role="navigation">
+                                <li class="nav-item method-pill" data-value="flash3d"><a
+                                    class="nav-link active">Flash3D<span style="font-size: 10px;"><br>(Feed-forwad,
+                                        1-View)</span></a></li>
+                                <li class="nav-item method-pill" data-value="realmdreamer"><a
+                                        class="nav-link">RealmDreamer
+                                        <span style="font-size: 10px;"><br>(Optimization-based, 1-View)</span></a></li>
+                                <li class="nav-item method-pill" data-value="cat3d_1"><a class="nav-link">CAT3D
+                                    <span style="font-size: 10px;"><br>(Optimization-based, 1-View)</span></a></li>
+                                <li class="nav-item method-pill" data-value="cat3d_3"><a class="nav-link">CAT3D
+                                        <span style="font-size: 10px;"><br>(Optimization-based, 3 View)</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="video-container offset-md-2">
+                            <div class="row">
+                                <!-- Left video with label -->
+                                <div class="col-5 position-relative">
+                                    <video class="video w-100" id="single-comp-left" loop playsinline autoplay
+                                        muted></video>
+                                    <div class="position-absolute top-0 start-2 bg-dark text-white p-1 opacity-75"
+                                        id="single-comp-label-left">Baseline</div>
+                                </div>
+
+                                <!-- Right video with label -->
+                                <div class="col-5 position-relative">
+                                    <video class="video w-100" id="single-comp-right" loop playsinline autoplay
+                                        muted></video>
+                                    <div class="position-absolute top-0 start-2 bg-dark text-white p-1 opacity-75"
+                                        id="single-comp-label-right">Bolt3D (ours)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pill-row scene-pills" id="flash3d-pills" role="group"
+                            aria-relevant="additions text">
+                            <div class="pill scene-pill" data-value="00ca5123d8ff6f83">
+                                <img class="card-img" src="bolt3d/comparison/flash3d/00ca5123d8ff6f83.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="00e8df74b6805da7">
+                                <img class="card-img" src="bolt3d/comparison/flash3d/00e8df74b6805da7.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="000c3ab189999a83">
+                                <img class="card-img" src="bolt3d/comparison/flash3d/000c3ab189999a83.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="01a5cc3805e94c21">
+                                <img class="card-img" src="bolt3d/comparison/flash3d/01a5cc3805e94c21.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="000db54a47bd43fe">
+                                <img class="card-img" src="bolt3d/comparison/flash3d/000db54a47bd43fe.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="00a5a2af678f37d5">
+                                <img class="card-img" src="bolt3d/comparison/flash3d/00a5a2af678f37d5.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="00cfc0ecd345deb4">
+                                <img class="card-img" src="bolt3d/comparison/flash3d/00cfc0ecd345deb4.png">
+                            </div>
+                        </div>
+
+                        <div class="pill-row scene-pills" id="cat3d_1-pills" role="group"
+                            aria-relevant="additions text">
+                            <div class="pill scene-pill" data-value="arcade">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_1/arcade.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="bedroom3">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_1/bedroom3.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="forest">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_1/forest.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="steampunk">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_1/steampunk.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="victorian">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_1/victorian.png">
+                            </div>
+                        </div>
+
+                        <div class="pill-row scene-pills" id="realmdreamer-pills" role="group"
+                            aria-relevant="additions text">
+                            <div class="pill scene-pill" data-value="arcade">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_1/arcade.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="bedroom3">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_1/bedroom3.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="forest">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_1/forest.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="steampunk">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_1/steampunk.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="victorian">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_1/victorian.png">
+                            </div>
+                        </div>
+
+                        <div class="pill-row scene-pills" id="cat3d_3-pills" role="group"
+                            aria-relevant="additions text">
+                            <div class="pill scene-pill" data-value="co3d_apple_110_13051_23361">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_3/co3d_apple_110_13051_23361.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="co3d_bench_167_18175_33897">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_3/co3d_bench_167_18175_33897.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="co3d_donut_198_21296_42378">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_3/co3d_donut_198_21296_42378.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="co3d_suitcase_197_21239_42788">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_3/co3d_suitcase_197_21239_42788.png">
+                            </div>
+                            <div class="pill scene-pill" data-value="co3d_teddybear_118_13848_27594">
+                                <img class="card-img" src="bolt3d/comparison/cat3d_3/co3d_teddybear_118_13848_27594.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8 offset-md-2 text-start">
+                <h4>
+                    Acknowledgements
+                </h4>
+
+                <p class="text-justify" style="text-align: left;">
+                    We would like to thank George Kopanas, Ben Poole, Sander Dieleman, Songyou Peng, Rundi Wu, Alex Trevithick, Daniel Duckworth, Hadi Alzayer, David Charatan,
+                    Jiapeng Tang and Akshay Krishnan for valuable discussions, insights and contributions.
+                    We also extend our gratitude to Shlomi Fruchter, Kevin Murphy, Mohammad Babaeizadeh, Han Zhang and Amir Hertz for training the base text-to-image latent diffusion model.
+                    <br><br><br>
+                </p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-5 center text-start">
+                    <label style="display: inline" for="bibtex">
+                        <h4 style="text-align: center">BibTeX </h4>
+                    </label>
+                    <textarea id="bibtex" class="form-control" readonly>
+@article{szymanowicz2025bolt3d,
+title={{Bolt3D: Generating 3D Scenes in Seconds}},
+author={Szymanowicz, Stanislaw and Zhang, Jason Y. and Srinivasan, Pratul and Gao, Ruiqi and Brussee, Arthur and Holynski, Aleksander and and Martin-Brualla, Ricardo and Barron, Jonathan T. and Henzler, Philipp}
+journal={arXiv:},
+year={2025}
+}
+                    </textarea>
+                </div>
+            </div>
+            <br><br>
+        </main>
+    </div>
+</body>
+
+</html>
