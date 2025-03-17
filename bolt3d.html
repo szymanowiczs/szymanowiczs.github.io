@@ -62,7 +62,7 @@
             }
             // Load the viewer if things are all good.
             else {
-                const brush_js = await import('./bolt3d/brush-demo/brush-app-977f9efa41c86440.js');
+                const brush_js = await import('./bolt3d/brush-demo/brush-app-c06951dff12b4ccb.js');
                 const init = brush_js.default;
                 const bindings = { ...brush_js };
 
@@ -73,7 +73,7 @@
                     }
                 };
 
-                const wasm = await init({ module_or_path: 'bolt3d/brush-demo/brush-app-977f9efa41c86440_bg.wasm' });
+                const wasm = await init({ module_or_path: 'bolt3d/brush-demo/brush-app-c06951dff12b4ccb_bg.wasm' });
                 window.wasmBindings = bindings;
 
                 const baseUrl = "https://storage.googleapis.com/realtime-nerf-360/glgm"
@@ -83,21 +83,36 @@
                 const viewer = new window.wasmBindings.EmbeddedApp("brush_canvas", start_cmd)
                 window.viewer = viewer;
 
-                window.load_model = function (name) {
-                    viewer.load_url(`${baseUrl}/${name}.compressed.ply`)
+                function setCamSettings(yaw_range) {
+                    viewer.set_camera_settings(new window.wasmBindings.CameraSettings(
+                        /* focal: f64*/ 1.0,
+                        /* start_distance: f32*/ 0.4,
+                        /* focus_distance: f32*/ 0.95,
+                        /* speed_scale: f32*/ 0.075,
+                        /* min_focus_distance: Option<f32>*/ 0.4,
+                        /* max_focus_distance: Option<f32>*/ 1.2,
+                        /* min_pitch: Option<f32>*/ -50.0,
+                        /* max_pitch: Option<f32>*/ 5.0,
+                        /* min_yaw: Option<f32>*/ yaw_range ? -yaw_range : null,
+                        /* max_yaw: Option<f32>*/ yaw_range ? yaw_range : null,
+                    ))
                 }
 
+                window.load_model = function (name) {
+                    const yaw_ranges = {
+                        "18c9c394-da40-43f2-84d6-c444890df88b": 30.0,
+                        "img_0_10": 30.0,
+                        "bike": 45.0,
+                    }
 
-                viewer.set_camera_settings(new window.wasmBindings.CameraSettings(
-                    /* focal: f64*/ 1.0,
-                    /* start_distance: f32*/ 0.4,
-                    /* focus_distance: f32*/ 0.95,
-                    /* speed_scale: f32*/ 0.075,
-                    /* min_focus_distance: Option<f32>*/ 0.4,
-                    /* max_focus_distance: Option<f32>*/ 1.2,
-                    /* min_pitch: Option<f32>*/ -50.0,
-                    /* max_pitch: Option<f32>*/ 5.0
-                ))
+                    viewer.load_url(`${baseUrl}/${name}.compressed.ply`)
+
+                    // Set yaw range if needed.
+                    setCamSettings(yaw_ranges[name] ?? null)
+                }
+
+                // Unclamped by default.
+                setCamSettings(null)
 
                 fallbackVideo.style.display = 'none';
                 viewerActive = true;
