@@ -13,7 +13,6 @@
     <meta property="og:image:width" content="1688">
     <meta property="og:image:height" content="1148">
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="bolt3d/css/app.css">
@@ -63,7 +62,7 @@
             }
             // Load the viewer if things are all good.
             else {
-                const brush_js = await import('bolt3d/brush-demo/brush-app-977f9efa41c86440.js');
+                const brush_js = await import('./bolt3d/brush-demo/brush-app-977f9efa41c86440.js');
                 const init = brush_js.default;
                 const bindings = { ...brush_js };
 
@@ -78,10 +77,7 @@
                 window.wasmBindings = bindings;
 
                 const baseUrl = "https://storage.googleapis.com/realtime-nerf-360/glgm"
-                // const baseUrl = `${window.origin}/models`
                 const start_url = `${baseUrl}/img_1_140.compressed.ply`
-
-                console.log(start_url);
 
                 var start_cmd = `?url=${start_url}&zen=true&start_distance=0.25&focal=1.0&focus_distance=1.05&speed_scale=0.075`
                 const viewer = new window.wasmBindings.EmbeddedApp("brush_canvas", start_cmd)
@@ -515,31 +511,34 @@
                 </div>
             </div>
 
-            
+
             <div class="row">
                 <div class="col-md-8 offset-md-2 rounded"
-                style="text-align: center; padding-bottom: 0px; padding-top: 5px; background-color: #d0d5ec;">
-                <h6 style="text-align: center; color:rgb(0, 0, 0)"><strong>TL;DR</strong>: Generate 3D scenes from one or more images in a feed-forward manner, taking 6.25s on a single GPU.</h6>
+                    style="text-align: center; padding-bottom: 0px; padding-top: 5px; background-color: #d0d5ec;">
+                    <h6 style="text-align: center; color:rgb(0, 0, 0)"><strong>TL;DR</strong>: Generate 3D scenes from
+                        one or more images in a feed-forward manner, taking 6.25s on a single GPU.</h6>
                 </div>
             </div><br><br>
-            
+
             <br />
             <div class="row">
                 <div class="">
                     <h3 class="col-md-8 offset-md-2"> How it works </h3>
                     <p class="col-md-8 offset-md-2" style="text-align: left;">
                         Given one or more input images, we generate multi-view Splatter Images.
-                        To do so, we first generate the scene appearance and geometry using a multi-view diffusion model.
+                        To do so, we first generate the scene appearance and geometry using a multi-view diffusion
+                        model.
                         Then, Splatter Images are regressed using a Gaussian Head.
                         3D Gaussians from multiple Splatter Images are combined to form the 3D scene.
                     </p>
-                    <video muted loop autoplay src="bolt3d/videos/howitworks_website.m4v" style="max-width:960px" width=65%>
+                    <video muted loop autoplay src="bolt3d/videos/howitworks_website.m4v" style="max-width:960px"
+                        width=65%>
                         An animated diagram briefly describing the method. On the left, an input image is shown. Next
                         are the rotating Splatter Images. On the right is the full 3D scene.
                     </video>
                 </div>
             </div><br><br>
-            
+
             <div id="viewer">
                 <div class="row">
                     <h2 class="col-md-12 text-center">
@@ -606,12 +605,16 @@
                     <div class="col-md-8 offset-md-2">
                         <h3> Geometry VAE</h3>
                         <p class="text-justify" style="text-align: left;">
-                            The key to generating high-quality 3D scenes with a latent diffusion model is our Geometry VAE, 
+                            The key to generating high-quality 3D scenes with a latent diffusion model is our Geometry
+                            VAE,
                             capable of compressing pointmaps with high accuracy.
-                            We find empirically that our VAE with a transformer decoder is more appropriate for autoencoding pointmaps
+                            We find empirically that our VAE with a transformer decoder is more appropriate for
+                            autoencoding pointmaps
                             than a VAE with a convolutional decoder or a VAE pre-trained for autoencoding images.
-                            Below we visualize colored point clouds using (1) Pointmaps from data, (2) Pointmaps autoencoded with our VAE, 
-                            (3) Pointmaps autoencoded with a VAE with a convolutional decoder and (4) Pointmaps autoencoded with a pre-trained Image VAE.
+                            Below we visualize colored point clouds using (1) Pointmaps from data, (2) Pointmaps
+                            autoencoded with our VAE,
+                            (3) Pointmaps autoencoded with a VAE with a convolutional decoder and (4) Pointmaps
+                            autoencoded with a pre-trained Image VAE.
                         </p>
 
                         <table style="margin-left: auto; margin-right: auto; width: 100%;">
@@ -623,8 +626,8 @@
                             </tr>
                             <tr>
                                 <td rowspan="1" colspan="4" style="width: 100%">
-                                    <video id="geometry_ours_video" class="video" width=100% loop playsinline
-                                        autoplay muted controls>
+                                    <video id="geometry_ours_video" class="video" width=100% loop playsinline autoplay
+                                        muted controls>
                                         <source src="bolt3d/videos/geometry_vae/render_053.m4v" />
                                     </video>
                                 </td>
@@ -633,8 +636,7 @@
                         <br>
                     </div>
 
-                    <div class="pill-row scene-pills" id="cameratime-pills" role="group"
-                        aria-relevant="additions text">
+                    <div class="pill-row scene-pills" id="cameratime-pills" role="group" aria-relevant="additions text">
                         <div class="pill scene-pill" data-value="render_053">
                             <img class="card-img" src="bolt3d/videos/geometry_vae/render_053.png">
                         </div>
@@ -696,7 +698,8 @@
                 <div class="col-md-8 offset-md-2">
                     <h3> Comparison to other methods</h3>
                     <p class="text-justify" style="text-align: left;">
-                        Compare the renders of our method Bolt3D (right) with feed-forward and optimization-based methods (left). Try
+                        Compare the renders of our method Bolt3D (right) with feed-forward and optimization-based
+                        methods (left). Try
                         selecting different methods and scenes!
                     </p>
 
@@ -704,13 +707,13 @@
                         <div class="row m-2">
                             <ul class="nav nav-pills justify-content-center" role="navigation">
                                 <li class="nav-item method-pill" data-value="flash3d"><a
-                                    class="nav-link active">Flash3D<span style="font-size: 10px;"><br>(Feed-forwad,
-                                        1-View)</span></a></li>
+                                        class="nav-link active">Flash3D<span style="font-size: 10px;"><br>(Feed-forwad,
+                                            1-View)</span></a></li>
                                 <li class="nav-item method-pill" data-value="realmdreamer"><a
                                         class="nav-link">RealmDreamer
                                         <span style="font-size: 10px;"><br>(Optimization-based, 1-View)</span></a></li>
                                 <li class="nav-item method-pill" data-value="cat3d_1"><a class="nav-link">CAT3D
-                                    <span style="font-size: 10px;"><br>(Optimization-based, 1-View)</span></a></li>
+                                        <span style="font-size: 10px;"><br>(Optimization-based, 1-View)</span></a></li>
                                 <li class="nav-item method-pill" data-value="cat3d_3"><a class="nav-link">CAT3D
                                         <span style="font-size: 10px;"><br>(Optimization-based, 3 View)</span></a></li>
                             </ul>
@@ -812,22 +815,25 @@
                                 <img class="card-img" src="bolt3d/comparison/cat3d_3/co3d_suitcase_197_21239_42788.png">
                             </div>
                             <div class="pill scene-pill" data-value="co3d_teddybear_118_13848_27594">
-                                <img class="card-img" src="bolt3d/comparison/cat3d_3/co3d_teddybear_118_13848_27594.png">
+                                <img class="card-img"
+                                    src="bolt3d/comparison/cat3d_3/co3d_teddybear_118_13848_27594.png">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-8 offset-md-2 text-start">
                 <h4>
                     Acknowledgements
                 </h4>
 
                 <p class="text-justify" style="text-align: left;">
-                    We would like to thank George Kopanas, Ben Poole, Sander Dieleman, Songyou Peng, Rundi Wu, Alex Trevithick, Daniel Duckworth, Hadi Alzayer, David Charatan,
+                    We would like to thank George Kopanas, Ben Poole, Sander Dieleman, Songyou Peng, Rundi Wu, Alex
+                    Trevithick, Daniel Duckworth, Hadi Alzayer, David Charatan,
                     Jiapeng Tang and Akshay Krishnan for valuable discussions, insights and contributions.
-                    We also extend our gratitude to Shlomi Fruchter, Kevin Murphy, Mohammad Babaeizadeh, Han Zhang and Amir Hertz for training the base text-to-image latent diffusion model.
+                    We also extend our gratitude to Shlomi Fruchter, Kevin Murphy, Mohammad Babaeizadeh, Han Zhang and
+                    Amir Hertz for training the base text-to-image latent diffusion model.
                     <br><br><br>
                 </p>
             </div>
