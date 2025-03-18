@@ -55,6 +55,7 @@ export async function setupGallery() {
     ]
 
     const videoPaths = [
+        "18c9c394-da40-43f2-84d6-c444890df88b_src_spiral_spiral.mp4",
         "panda_car_i2v_src_loop_loop.mp4",
         "IMG_20160322_200534_src_spiral_spiral.mp4",
         "IMG_2729_src_spiral_spiral.mp4",
@@ -96,7 +97,6 @@ export async function setupGallery() {
         "849115291c948385.mp4",
     ];
 
-    shuffleArray(viewerPathsPremium);
     shuffleArray(viewerPaths);
     shuffleArray(premiumVideoPaths);
     shuffleArray(videoPaths);
@@ -106,22 +106,13 @@ export async function setupGallery() {
 
     const videos = []
 
-    // Add show more button creation here
-    const showMoreBtn = document.createElement("BUTTON");
-    showMoreBtn.className = "btn btn-primary mt-3 mb-4";
-    showMoreBtn.textContent = "Show More Results";
-    showMoreBtn.style.display = "none";
-
     const paths = 'gpu' in navigator ?
         [...premiumVideoPaths, ...videoPaths, ...viewerPathsPremium] : [...viewerPathsPremium, ...premiumVideoPaths, ...videoPaths, ...viewerPaths];
 
-    for (let i = 0; i < paths.length; i++) {
-        const videoPath = paths[i];
+    for (let videoPath of paths) {
+        // Create column element for each video
         var column = document.createElement("DIV");
         column.className = "col-lg-3 col-md-4 col-sm-6 mb-4";
-        if (i >= INITIAL_VIDEOS) {
-            column.style.display = "none";
-        }
 
         var outer = document.createElement("DIV");
         outer.className = "thumbnail outer card h-100";
@@ -191,25 +182,10 @@ export async function setupGallery() {
         column.appendChild(outer);
         thumbnails.appendChild(column);
 
-        videos.push({ video: componentVideo, column: column });
+        videos.push(componentVideo)
     }
 
-    if (paths.length > INITIAL_VIDEOS) {
-        showMoreBtn.style.display = "block";
-        thumbnails.parentNode.insertBefore(showMoreBtn, thumbnails.nextSibling);
-
-        showMoreBtn.addEventListener("click", () => {
-            videos.forEach((item, index) => {
-                if (index >= visibleCount) {
-                    item.column.style.display = "";
-                }
-            });
-            showMoreBtn.style.display = "none";
-        });
-    }
-
-    // Update the final loop
-    for (const item of videos) {
-        await waitForVideoPlayable(item.video);
+    for (const video of videos) {
+        await waitForVideoPlayable(componentVideo)
     }
 }
