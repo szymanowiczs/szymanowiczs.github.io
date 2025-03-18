@@ -24,9 +24,11 @@
                 </p>
                 <p>I am a PhD student at <a href="https://www.robots.ox.ac.uk/~vgg/">VGG group at University of Oxford</a>, where I work on Computer Vision and Machine Learning with <a href="https://www.robots.ox.ac.uk/~vedaldi/">Andrea Vedaldi</a> and <a href="https://chrirupp.github.io">Christian Rupprecht</a>.
                 </p>
+                <p>I spent the summer 2024 interning at Google San Francisco, continuing in London until April 2025</a>.
+                </p>
                 <p>
-                  Before that, I worked at <a href="https://www.microsoft.com/en-us/research/lab/mixed-reality-ai-lab-cambridge/">Microsoft Mixed Reality Lab</a> with <a href="https://www.microsoft.com/en-us/research/people/matjoh/">Matthew Johnson</a>, Virginia Estellers and Julien Valentin.
-                  I received an MEng with Distinction from the University of Cambridge where I worked with <a href="https://mi.eng.cam.ac.uk/~cipolla/">Roberto Cipolla</a> and <a href="http://www.jjcvision.com">James Charles</a>.
+                  Before my PhD, I worked at Microsoft Mixed Reality Lab (2021-2022) in Cambridge and received an MEng with Distinction
+                  from the University of Cambridge (2017-2021).
                 </p>
                 <p style="text-align:center">
                   <a href="mailto:stan@robots.ox.ac.uk">Email</a> &nbsp;/&nbsp;
@@ -36,7 +38,7 @@
                 </p>
               </td>
               <td style="padding:2.5%;width:40%;max-width:40%">
-                <a href="images/JonBarron.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/profile_pic.jpeg" class="hoverZoomLink"></a>
+                <a href="images/profile_pic.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/profile_pic.jpeg" class="hoverZoomLink"></a>
               </td>
             </tr>
           </tbody></table>
@@ -45,14 +47,112 @@
               <td style="padding:20px;width:100%;vertical-align:middle">
                 <h2>Research</h2>
                 <p>
-                  I am interested in many areas of Machine Learning - my research focuses on Computer Vision with an emphasis on 3D Vision. Recently, I have been exploring the intersection of 3D Computer Vision, Computer Graphics and Generative Models.
+                  I am interested in Computer Vision (with an emphasis on 3D), Computer Graphics and Generative Models.
                 </p>
               </td>
             </tr>
           </tbody></table>
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          
     
+    <tr onmouseout="bolt3d_stop()" onmouseover="bolt3d_start()"  bgcolor="#ffffd0">
+      <td style="padding:20px;width:25%;vertical-align:middle">
+        <div class="one">
+          <div class="two" id='bolt3d_image'><video  width=100% height=100% muted autoplay loop>
+          <source src="bolt3d-static/img_1_140.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+
+          </video></div>
+          <img src='bolt3d-static/bolt3d_image.png' width="160">
+        </div>
+        <script type="text/javascript">
+          function bolt3d_start() {
+            document.getElementById('bolt3d_image').style.opacity = "1";
+          }
+
+          function bolt3d_stop() {
+            document.getElementById('bolt3d_image').style.opacity = "0";
+          }
+          bolt3d_stop()
+        </script>
+      </td>
+      <td style="padding:20px;width:75%;vertical-align:middle">
+        <a href="https://szymanowiczs.github.io/bolt3d">
+          <span class="papertitle">Bolt3D: Generating 3D Scenes in Seconds</span>
+        </a>
+        <br>
+        <strong>Stanislaw Szymanowicz</strong>,
+        <a href="https://jasonyzhang.com">Jason Y. Zhang</a>,
+        <a href="https://pratulsrinivasan.github.io">Pratul Srinivasan</a>,
+        <a href="https://ruiqigao.github.io">Ruiqi Gao</a>,
+        <a href="https://github.com/ArthurBrussee">Arthur Brussee</a>,
+        <a href="https://holynski.org">Aleksander Holynski</a>,
+        <a href="https://ricardomartinbrualla.com">Ricardo Martin-Brualla</a>,
+        <a href="https://jonbarron.info">Jonathan T. Barron</a>,
+        <a href="https://henzler.github.io">Philipp Henzler</a>
+        <br>
+        <em>arXiv</em>, 2025
+        <br>
+        <a href="https://szymanowiczs.github.io/bolt3d">project page, with an interactive viewer</a>
+        /
+        <a href="https://szymanowiczs.github.io/bolt3d">arXiv</a>
+        <p></p>
+        <p>
+        Bolt3D allows feed-forward 3D scene generation in 6.25s on a single GPU.
+        Our latent diffusion model directly outputs 3D Gaussians, and is trained on a large-scale dataset of reconstructed 3D scenes.
+        </p>
+      </td>
+    </tr>
+    
+    <tr onmouseout="flash3d_stop()" onmouseover="flash3d_start()">
+      <td style="padding:20px;width:25%;vertical-align:middle">
+        <div class="one">
+          <div class="two" id='flash3d_image'><video  width=100% height=100% muted autoplay loop>
+          <source src="flash3d-static/videos/website_video.mov" type="video/mp4">
+          Your browser does not support the video tag.
+
+          </video></div>
+          <img src='flash3d-static/images/website_teaser_image.jpeg' width="160">
+        </div>
+        <script type="text/javascript">
+          function flash3d_start() {
+            document.getElementById('flash3d_image').style.opacity = "1";
+          }
+
+          function flash3d_stop() {
+            document.getElementById('flash3d_image').style.opacity = "0";
+          }
+          flash3d_stop()
+        </script>
+      </td>
+      <td style="padding:20px;width:75%;vertical-align:middle">
+        <a href="https://www.robots.ox.ac.uk/~vgg/research/flash3d/">
+          <span class="papertitle">Flash3D: Feed-Forward Generalisable Scene Reconstruction from a Single Image</span>
+        </a>
+        <br>
+        <strong>Stanislaw Szymanowicz</strong>*,
+        <a href="https://eldar.insafutdinov.com">Eldar Insafutdinov</a>*,
+        <a href="https://chuanxiaz.com">Chuanxia Zheng</a>*,
+        <a href="https://sites.google.com/view/djcampbell">Dylan Campbell</a>,
+        <a href="https://www.robots.ox.ac.uk/~joao/#about">Joao Henriques</a>,
+        <a href="https://chrirupp.github.io">Christian Rupprecht</a>,
+        <a href="https://www.robots.ox.ac.uk/~vedaldi/">Andrea Vedaldi</a>
+        <br>
+        <em>3DV</em>, 2025
+        <br>
+        <a href="https://github.com/eldar/flash3d">code</a>
+        /
+        <a href="https://www.robots.ox.ac.uk/~vgg/research/flash3d/">project page</a>
+        /
+        <!-- <a href="https://huggingface.co/spaces/szymanowiczs/splatter_image">demo</a>
+        / -->
+        <a href="https://arxiv.org/abs/2406.04343">arXiv</a>
+        <p></p>
+        <p>
+        We show that leveraging a Monocular Depth Estimator and a Layered Representation allows building generalizable and efficient 3D scene reconstructors.
+        </p>
+      </td>
+    </tr>
+        
     <tr onmouseout="splatter_image_stop()" onmouseover="splatter_image_start()"  bgcolor="#ffffd0">
       <td style="padding:20px;width:25%;vertical-align:middle">
         <div class="one">
@@ -101,7 +201,7 @@
     </tr>
 
     <!--<tr onmouseout="viewset_diff_stop()" onmouseover="viewset_diff_start()"  bgcolor="#ffffd0"> -->
-    <tr onmouseout="viewset_diff_stop()" onmouseover="viewset_diff_start()"  bgcolor="#ffffd0">
+    <tr onmouseout="viewset_diff_stop()" onmouseover="viewset_diff_start()">
         <td style="padding:20px;width:25%;vertical-align:middle">
           <div class="one">
             <div class="two" id='viewset_diff_image'><video  width=100% height=100% muted autoplay loop>
