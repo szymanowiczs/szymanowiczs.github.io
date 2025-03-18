@@ -203,6 +203,40 @@
                 </div>
             </div>
 
+            <br>
+            <div id="variable_input_views">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <h3> Variable number of input views
+                        </h3>
+                        <p class="text-justify" style="text-align: left;">
+                            Bolt3D can accept variable number of input images.
+                            Our model adheres to conditioning when it is available and generates unobserved
+                            scene regions without any reprojection or inpainting mechanisms.
+                        </p>
+
+                        <table style="margin-left: auto; margin-right: auto; width: 100%;">
+                            <tr>
+                                <th style="text-align: center;width: 16%;">1 input view</th>
+                                <th style="text-align: center;width: 34%;">1-view reconstruction</th>
+                                <th style="text-align: center;width: 16%;">2 input views</th>
+                                <th style="text-align: center;width: 34%;">2-view reconstruction</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="4" style="width: 100%">
+                                    <video id="variable_input_video" class="video" width=100% loop playsinline autoplay
+                                        muted controls>
+                                        <source src="bolt3d/videos/single_vs_2_view.mp4" />
+                                    </video>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+
+                </div>
+            </div>
+            <br>
 
             <div id="geometry_vae-ours">
                 <div class="row">
