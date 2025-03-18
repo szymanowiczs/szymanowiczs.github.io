@@ -30,7 +30,7 @@ export async function setupGallery() {
     ]
 
     const viewerPaths = [
-        "img_7841_src_spiral_spiral.mp4",
+        "IMG_7841_src_spiral_spiral.mp4",
         "lighthouse.mp4",
         "living_room.mp4",
         "resolute.mp4",
