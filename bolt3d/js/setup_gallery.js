@@ -19,8 +19,24 @@ export async function setupGallery() {
         }
     }
 
-    const premiumVideoPaths = [
+    const viewerPaths = [
+        "18c9c394-da40-43f2-84d6-c444890df88b_src_spiral_spiral.webm",
+        "A_cute_corgi_lives_in_a_house_made_out_of_sushi_src_loop_loop.webm",
+        "bedroom3_src.webm",
         "bike_src.webm",
+        "forest.webm",
+        "frog_src.webm",
+        "img_0_10_src.webm",
+        "img_1_140_src.webm",
+        "img_7841_src_spiral_spiral.webm",
+        "kitchen_src.webm",
+        "lighthouse.webm",
+        "living_room.webm",
+        "resolute.webm",
+        "teddybear_skate_i2v.webm",
+    ]
+
+    const premiumVideoPaths = [
         "bonefire_i2v.webm",
         "26_input_src_loop_loop.webm",
         "car_src_loop_loop.webm",
@@ -36,17 +52,13 @@ export async function setupGallery() {
         "wave_i2v_src_spiral_spiral.webm",
     ]
 
-    // Update this with gen_file_list.py.
     const videoPaths = [
-        "img_0_10_src.webm",
         "18c9c394-da40-43f2-84d6-c444890df88b_src_spiral_spiral.webm",
-        "bedroom3_src.webm",
         "panda_car_i2v_src_loop_loop.webm",
         "IMG_20160322_200534_src_spiral_spiral.webm",
         "IMG_2729_src_spiral_spiral.webm",
         "A_minimap_diorama_of_a_cafe_adorned_with_indoor_plants_src_spiral_spiral.webm",
         "sloth_i2v_src_loop_loop.webm",
-        "IMG_7841_src_spiral_spiral.webm",
         "IMG_1295_src_spiral_spiral.webm",
         "skeleton_i2v_src_loop_loop.webm",
         "panda_bamboo_i2v_src_loop_loop.webm",
@@ -84,17 +96,19 @@ export async function setupGallery() {
         "849115291c948385.webm",
     ];
 
+    shuffleArray(viewerPaths);
     shuffleArray(premiumVideoPaths);
     shuffleArray(videoPaths);
 
     var thumbnails = document.getElementById("thumbnails");
     var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-
-    var i = 0;
     const videos = []
 
-    for (let videoPath of [...premiumVideoPaths, ...videoPaths]) {
+    const paths = 'gpu' in navigator ?
+        [...premiumVideoPaths, ...videoPaths] : [...viewerPaths, ...premiumVideoPaths, ...videoPaths];
+
+    for (let videoPath of paths) {
         // Create column element for each video
         var column = document.createElement("DIV");
         column.className = "col-lg-3 col-md-4 col-sm-6 mb-4";
