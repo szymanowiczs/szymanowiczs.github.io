@@ -19,21 +19,23 @@ export async function setupGallery() {
         }
     }
 
-    const viewerPaths = [
+    const viewerPathsPremium = [
         "18c9c394-da40-43f2-84d6-c444890df88b_src_spiral_spiral.mp4",
-        "A_cute_corgi_lives_in_a_house_made_out_of_sushi_src_loop_loop.mp4",
         "bedroom3_src.mp4",
         "bike_src.mp4",
         "forest.mp4",
         "frog_src.mp4",
         "img_0_10_src.mp4",
-        "img_1_140_src.mp4",
-        "img_7841_src_spiral_spiral.mp4",
         "kitchen_src.mp4",
+    ]
+
+    const viewerPaths = [
+        "img_7841_src_spiral_spiral.mp4",
         "lighthouse.mp4",
         "living_room.mp4",
         "resolute.mp4",
         "teddybear_skate_i2v.mp4",
+        "A_cute_corgi_lives_in_a_house_made_out_of_sushi_src_loop_loop.mp4",
     ]
 
     const premiumVideoPaths = [
@@ -64,7 +66,6 @@ export async function setupGallery() {
         "panda_bamboo_i2v_src_loop_loop.mp4",
         "IMG_0752_src_spiral_spiral.mp4",
         "PXL_20240421_134255779_src_spiral_spiral.mp4",
-        "A_cute_corgi_lives_in_a_house_made_out_of_sushi_src_loop_loop.mp4",
         "IMG_5279_src_spiral_spiral.mp4",
         "5ADD4FB0-DC1D-4C75-A7AA-ED046B333009_src_loop_loop.mp4",
         "IMG_7262_src_spiral_spiral.mp4",
@@ -106,7 +107,7 @@ export async function setupGallery() {
     const videos = []
 
     const paths = 'gpu' in navigator ?
-        [...premiumVideoPaths, ...videoPaths] : [...viewerPaths, ...premiumVideoPaths, ...videoPaths];
+        [...premiumVideoPaths, ...videoPaths, ...viewerPathsPremium] : [...viewerPathsPremium, ...premiumVideoPaths, ...videoPaths, ...viewerPaths];
 
     for (let videoPath of paths) {
         // Create column element for each video
