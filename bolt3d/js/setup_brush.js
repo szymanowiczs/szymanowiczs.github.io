@@ -53,15 +53,15 @@ export async function setupBrush() {
         const baseUrl = "https://storage.googleapis.com/realtime-nerf-360/glgm"
         // const startUrl = `${baseUrl}/img_1_140.compressed.ply`
 
-        var start_cmd = `?zen=true&start_distance=0.25&focal=1.0&focus_distance=1.05&speed_scale=0.075`
+        var start_cmd = `?zen=true&focal=0.9`
         const viewer = new window.wasmBindings.EmbeddedApp("brush_canvas", start_cmd)
         window.viewer = viewer;
 
         function setCamSettings(yaw_range) {
             viewer.set_camera_settings(new window.wasmBindings.CameraSettings(
                     /* focal: f64*/ 1.0,
-                    /* start_distance: f32*/ 0.4,
-                    /* focus_distance: f32*/ 0.95,
+                    /* start_distance: f32*/ 0.525,
+                    /* focus_distance: f32*/ 0.9,
                     /* speed_scale: f32*/ 0.075,
                     /* min_focus_distance: Option<f32>*/ 0.4,
                     /* max_focus_distance: Option<f32>*/ 1.2,
