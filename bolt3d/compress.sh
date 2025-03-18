@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Create the output directory if it doesn't exist
 mkdir -p gallery_videos_compressed
 
@@ -5,7 +7,7 @@ mkdir -p gallery_videos_compressed
 find gallery_videos -type f -name "*.mp4" -exec bash -c '
   input="$1"
   filename=$(basename "$input")
-  output="gallery_videos_compressed/${filename%.*}.webm"
+  output="gallery_videos_compressed/${filename}"
   
   # Get original dimensions
   dimensions=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0 "$input")
@@ -19,34 +21,16 @@ find gallery_videos -type f -name "*.mp4" -exec bash -c '
   # Remove the output file if it already exists
   rm -f "$output"
   
-  # Convert to WebM with maximum compression settings
+  # Convert to MP4 with high compression settings using H.264
   ffmpeg -i "$input" -vf "scale=$new_width:$new_height" \
-    -c:v libvpx-vp9 \
-    -b:v 0 \
-    -crf 37 \
-    -deadline good \
-    -cpu-used 4 \
-    -row-mt 1 \
-    -tile-columns 2 \
+    -c:v libx264 \
+    -preset slow \
+    -crf 28 \
+    -profile:v baseline \
+    -level 3.0 \
+    -movflags +faststart \
+    -pix_fmt yuv420p \
     -an \
-    -auto-alt-ref 1 \
-    -lag-in-frames 25 \
-    -frame-parallel 1 \
-    -pass 1 \
-    -f null /dev/null && \
-  ffmpeg -i "$input" -vf "scale=$new_width:$new_height" \
-    -c:v libvpx-vp9 \
-    -b:v 0 \
-    -crf 37 \
-    -deadline good \
-    -cpu-used 4 \
-    -row-mt 1 \
-    -tile-columns 2 \
-    -an \
-    -auto-alt-ref 1 \
-    -lag-in-frames 25 \
-    -frame-parallel 1 \
-    -pass 2 \
     -y "$output"
   
   echo "Processed: $filename"
