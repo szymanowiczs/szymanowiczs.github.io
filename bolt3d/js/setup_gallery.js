@@ -187,6 +187,11 @@ export async function setupGallery() {
         videos.push(componentVideo);
     }
 
+    // Add initial videos
+    columns.slice(0, INITIAL_VIDEOS_TO_SHOW).forEach(column => {
+        thumbnails.appendChild(column);
+    });
+
     // Create and add "Show More" button if there are more videos
     if (columns.length > INITIAL_VIDEOS_TO_SHOW) {
         const showMoreContainer = document.createElement("DIV");
