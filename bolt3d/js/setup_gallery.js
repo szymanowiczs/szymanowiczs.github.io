@@ -125,7 +125,6 @@ export async function setupGallery() {
 
         // Create thumbnail image
         var thumbnailImg = document.createElement("IMG");
-
         // Generate thumbnail path from video path
         let thumbnailPath = videoPath.replace(".mp4", ".png");
         // Remove the special suffixes
@@ -160,30 +159,20 @@ export async function setupGallery() {
         var componentVideo = document.createElement("VIDEO");
         componentVideo.style.width = "100%"
         componentVideo.style.height = "100%"
-        componentVideo.autoplay = true;
-        componentVideo.muted = true;
-        componentVideo.loop = true;
-        componentVideo.playsinline = true;
-        componentVideo.controls = false;
+        componentVideo.setAttribute("autoplay", "")
+        componentVideo.setAttribute("loop", "")
+        componentVideo.setAttribute("muted", "")
+        componentVideo.setAttribute("playsinline", "")
+        componentVideo.setAttribute("playsinline", "")
         componentVideo.className = "video";
         componentVideo.src = `bolt3d/gallery_videos_compressed/${videoPath}`;
-        componentVideo.preload = "auto"
-
-
-        if (!isIOS) {
-            componentVideo.onmousemove = componentVideo.play;
-            componentVideo.onmouseout = componentVideo.play;
-            componentVideo.onkeyup = componentVideo.play;
-            componentVideo.onmouseover = componentVideo.play;
-        }
 
         inner.appendChild(componentVideo);
         outer.appendChild(inner);
-        outer.appendChild(thumbnailImg); // Add thumbnail to the card
+        outer.appendChild(thumbnailImg);
         column.appendChild(outer);
-        // thumbnails.appendChild(column);
 
-        columns.push(column); // Store column instead of adding to thumbnails directly
+        columns.push(column);
         videos.push(componentVideo);
     }
 
@@ -196,7 +185,7 @@ export async function setupGallery() {
     if (columns.length > INITIAL_VIDEOS_TO_SHOW) {
         const showMoreContainer = document.createElement("DIV");
         showMoreContainer.className = "col-12 text-center mt-4 mb-4";
-        
+
         const showMoreButton = document.createElement("BUTTON");
         showMoreButton.className = "btn btn-primary";
         showMoreButton.textContent = "Show More Results";
@@ -218,3 +207,4 @@ export async function setupGallery() {
         await waitForVideoPlayable(componentVideo)
     }
 }
+
