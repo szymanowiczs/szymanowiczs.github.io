@@ -108,7 +108,7 @@ export async function setupGallery() {
     const columns = [];
 
     const paths = 'gpu' in navigator ?
-        [...premiumVideoPaths, ...videoPaths, ...viewerPathsPremium] : [...viewerPathsPremium, ...premiumVideoPaths, ...videoPaths, ...viewerPaths];
+        [...premiumVideoPaths, ...videoPaths, ...viewerPathsPremium] : [...premiumVideoPaths, ...viewerPathsPremium, ...videoPaths, ...viewerPaths];
 
     for (let videoPath of paths) {
         // Create column element for each video
