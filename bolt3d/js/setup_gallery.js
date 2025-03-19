@@ -100,10 +100,12 @@ export async function setupGallery() {
     shuffleArray(premiumVideoPaths);
     shuffleArray(videoPaths);
 
+    const INITIAL_VIDEOS_TO_SHOW = 12;
     var thumbnails = document.getElementById("thumbnails");
     var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-    const videos = []
+    const videos = [];
+    const columns = [];
 
     const paths = 'gpu' in navigator ?
         [...premiumVideoPaths, ...videoPaths, ...viewerPathsPremium] : [...viewerPathsPremium, ...premiumVideoPaths, ...videoPaths, ...viewerPaths];
@@ -181,8 +183,31 @@ export async function setupGallery() {
         column.appendChild(outer);
         thumbnails.appendChild(column);
 
-        videos.push(componentVideo)
+        columns.push(column); // Store column instead of adding to thumbnails directly
+        videos.push(componentVideo);
     }
+
+    // Create and add "Show More" button if there are more videos
+    if (columns.length > INITIAL_VIDEOS_TO_SHOW) {
+        const showMoreContainer = document.createElement("DIV");
+        showMoreContainer.className = "col-12 text-center mt-4 mb-4";
+        
+        const showMoreButton = document.createElement("BUTTON");
+        showMoreButton.className = "btn btn-primary";
+        showMoreButton.textContent = "Show More Results";
+        showMoreButton.onclick = () => {
+            // Add all remaining videos
+            columns.slice(INITIAL_VIDEOS_TO_SHOW).forEach(column => {
+                thumbnails.insertBefore(column, showMoreContainer);
+            });
+            // Remove the "Show More" button
+            showMoreContainer.remove();
+        };
+
+        showMoreContainer.appendChild(showMoreButton);
+        thumbnails.appendChild(showMoreContainer);
+    }
+
 
     for (const video of videos) {
         await waitForVideoPlayable(componentVideo)
