@@ -181,7 +181,7 @@ export async function setupGallery() {
         outer.appendChild(inner);
         outer.appendChild(thumbnailImg); // Add thumbnail to the card
         column.appendChild(outer);
-        thumbnails.appendChild(column);
+        // thumbnails.appendChild(column);
 
         columns.push(column); // Store column instead of adding to thumbnails directly
         videos.push(componentVideo);
