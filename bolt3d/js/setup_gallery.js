@@ -159,6 +159,8 @@ export async function setupGallery() {
         var componentVideo = document.createElement("VIDEO");
         componentVideo.style.width = "100%"
         componentVideo.style.height = "100%"
+        componentVideo.autoplay = true
+        componentVideo.loop = true
         componentVideo.setAttribute("autoplay", "")
         componentVideo.setAttribute("loop", "")
         componentVideo.setAttribute("muted", "")
