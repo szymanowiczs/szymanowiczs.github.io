@@ -55,7 +55,6 @@ export async function setupGallery() {
     ]
 
     const videoPaths = [
-        "18c9c394-da40-43f2-84d6-c444890df88b_src_spiral_spiral.mp4",
         "panda_car_i2v_src_loop_loop.mp4",
         "IMG_20160322_200534_src_spiral_spiral.mp4",
         "IMG_2729_src_spiral_spiral.mp4",
