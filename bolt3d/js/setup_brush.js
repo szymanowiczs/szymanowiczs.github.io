@@ -26,7 +26,7 @@ export async function setupBrush() {
         const child = document.createElement('p');
         child.classList = "warning-message";
         child.innerHTML =
-            'Your browser does not appear to support the WebGPU API. Currently, only Chrome is supported currently. For linux, please enable WebGPU.';
+            'Your browser does not appear to support the WebGPU API. Currently, only Chrome is supported. For linux, please enable WebGPU.';
         warningElement.appendChild(child);
         contentElement.style.display = 'none';
 
