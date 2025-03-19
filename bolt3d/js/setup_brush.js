@@ -17,7 +17,30 @@ function waitForVideoFullyLoaded(videoElement) {
 export async function setupBrush() {
     const fallbackVideo = document.getElementById('viewer-fallback-video');
 
-    if (!('gpu' in navigator)) {
+    async function checkWebGPUSupport() {
+        if (!navigator.gpu) {
+            return false;
+        }
+
+        // On some platforms (hum Linux) gpu _is_ available, but actually initializing
+        // fails... So try requesting an adapter to see what happens.
+        try {
+            const adapter = await navigator.gpu.requestAdapter();
+            if (!adapter) {
+                return false;
+            }
+            // Not necesarry but just to be sure.
+            const device = await adapter.requestDevice();
+            return !!device;
+        } catch (e) {
+            console.error("Error checking WebGPU support:", e);
+            return false;
+        }
+    }
+
+    const supported = await checkWebGPUSupport();
+
+    if (!supported) {
         const warningElement = document.getElementById('warning-msg');
         const contentElement = document.getElementById('viewer-content');
 
